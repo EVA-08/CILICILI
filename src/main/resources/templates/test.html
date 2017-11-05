@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/test}" th:object="${user}" method="post">
+  <label>用户名：<input th:field="*{username}"/></label>
+
+  <label>密码：<input th:field="*{password}"/></label>
+
+  <label>身份：
+    <select th:field="*{identity}">
+      <option th:value="TEACHER" th:text="教师"></option>
+      <option th:value="STUDENT" th:text="学生" selected></option>
+    </select>
+  </label>
+
+  <input type="submit">
+</form>
+</body>
+</html>
