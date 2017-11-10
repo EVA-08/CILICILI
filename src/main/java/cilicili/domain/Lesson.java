@@ -17,7 +17,7 @@ public class Lesson {
     private Set<PublishedHomework> publishedHomeworkSet = new HashSet<>();
     private Set<Question> QuestionSet = new HashSet<>();
     private Course course;
-    private Integer order;
+    private Integer sequence;
 
     @Id
     @GeneratedValue
@@ -95,12 +95,12 @@ public class Lesson {
     }
 
     @Column
-    public Integer getOrder() {
-        return order;
+    public Integer getSequence() {
+        return sequence;
     }
 
-    public void setOrder(Integer order) {
-        this.order = order;
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     /**
