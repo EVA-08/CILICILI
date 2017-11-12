@@ -10,5 +10,6 @@ import java.util.Set;
 public interface CourseRepository extends CrudRepository<Course, Integer> {
     public Course findByName(String name);
 
+    public Set<Course> findByNameContaining(String queryString);
     public Set<Course> findAllBy();
 }

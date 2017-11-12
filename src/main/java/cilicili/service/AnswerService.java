@@ -32,15 +32,13 @@ public class AnswerService {
      * 增加一条回答
      *
      * @param questionId 问题ID
-     * @param answerId   回答ID
+     * @param answer  答案信息
      */
-    public void addAnswer(Integer questionId, Integer answerId) {
+    public void addAnswer(Integer questionId, Answer answer) {
         Question question = questionRepository.findOne(questionId);
-        Answer answer = answerRepository.findOne(answerId);
         question.getAnswerSet().add(answer);
         answer.setQuestion(question);
         questionRepository.save(question);
-        answerRepository.save(answer);
     }
 
     /**

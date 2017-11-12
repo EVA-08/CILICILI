@@ -50,7 +50,6 @@ public class CourseService {
         Course course = courseRepository.findOne(courseId);
         user.addRegisteredCourse(course);
         userRepository.save(user);
-        courseRepository.save(course);
     }
     /**
      * 创建课程
@@ -74,7 +73,6 @@ public class CourseService {
         Course course = courseRepository.findOne(courseId);
         user.removeRegisteredCourse(course);
         userRepository.save(user);
-        courseRepository.save(course);
     }
 
     /**
@@ -84,8 +82,7 @@ public class CourseService {
      * @return 课程列表
      */
     public Set<Course> fuzzyQueryCourseList(String queryString) {
-        return null;
-
+        return courseRepository.findByNameContaining(queryString);
     }
 
     /**

@@ -45,15 +45,13 @@ public class LessonService {
      * 给课程增加一节课
      *
      * @param courseId 课程ID
-     * @param lessonId   一节课的ID
+     * @param lesson  一节课的信息
      */
-    public void addLesson(Integer courseId, Integer lessonId) {
+    public void addLesson(Integer courseId, Lesson lesson) {
         Course course = courseRepository.findOne(courseId);
-        Lesson lesson = lessonRepository.findOne(lessonId);
         course.getLessonSet().add(lesson);
         lesson.setCourse(course);
         courseRepository.save(course);
-        lessonRepository.save(lesson);
     }
 
     /**
@@ -67,7 +65,6 @@ public class LessonService {
         Lesson lesson = lessonRepository.findOne(lessonId);
         course.getLessonSet().remove(lesson);
         lesson.setCourse(null);
-        lessonRepository.save(lesson);
         courseRepository.save(course);
     }
 }
