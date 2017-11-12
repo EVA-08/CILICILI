@@ -2,10 +2,13 @@ package cilicili.service;
 
 import cilicili.domain.Course;
 import cilicili.domain.User;
+import cilicili.repository.CourseRepository;
+import cilicili.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * 客户相关业务
@@ -13,14 +16,26 @@ import java.util.List;
 @Service
 @Transactional
 public class CourseService {
+    private UserRepository userRepository;
+    private CourseRepository courseRepository;
+
+    @Autowired
+    private void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    private void setCourseRepository(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
+    }
+
     /**
-     * 获得注册课程列表
-     *
-     * @param user 用户
-     * @return 返回注册课程列表
+     * 得到用户注册课程集合
+     * @param user 用户个人信息
+     * @return 用户注册的课程集合
      */
-    public List<Course> getRegisteredCourseList(User user) {
-        return null;
+    public Set<Course> GetRegisteredCourseRet(User user) {
+        return user.getRegisteredCourseSet();
     }
 
     /**
@@ -30,15 +45,22 @@ public class CourseService {
      * @param courseId 课程ID
      */
     public void registerCourse(User user, Integer courseId) {
+        User user1 = userRepository.findOne(user.getId());
+        Course course1 = courseRepository.findOne(courseId);
+        user1.addRegisteredCourse(course1);
+        userRepository.save(user1);
+        courseRepository.save(course1);
     }
-
     /**
      * 创建课程
      *
      * @param course 课程信息
      */
     public void createCourse(Course course) {
-
+        Course course1 = new Course();
+        course1.setName(course.getName());
+        course1.setIntroduction(course.getIntroduction());
+        courseRepository.save(course1);
     }
 
     /**
@@ -46,8 +68,12 @@ public class CourseService {
      *
      * @param courseId 课程ID
      */
-    public void deleteCourse(Integer courseId) {
-
+    public void deleteCourse(User user, Integer courseId) {
+        User user1 = userRepository.findOne(user.getId());
+        Course course1 = courseRepository.findOne(courseId);
+        user1.removeRegisteredCourse(course1);
+        userRepository.save(user1);
+        courseRepository.save(course1);
     }
 
     /**
@@ -56,7 +82,17 @@ public class CourseService {
      * @param queryString 查询字符串
      * @return 课程列表
      */
-    public List<Course> fuzzyQueryCourseList(String queryString) {
+    public Set<Course> fuzzyQueryCourseList(String queryString) {
         return null;
+
+    }
+
+    /**
+     * 获得所有课程
+     *
+     * @return 所有课程
+     */
+    public Iterable<Course> getAllCourse() {
+        return courseRepository.findAll();
     }
 }

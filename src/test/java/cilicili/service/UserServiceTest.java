@@ -29,7 +29,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testRegister() {
+    public void RegisterTest() {
         User user = new User();
         user.setUsername("aaa");
         user.setPassword("bbb");
@@ -60,6 +60,27 @@ public class UserServiceTest {
 
         result = userService.changePassword(user, "aaa", "bbb");
         Assert.assertEquals(true, result);
+        user1 = userRepository.findOne(user.getId());
         Assert.assertEquals("bbb", user1.getPassword());
+    }
+
+    @Test
+    public void changePersonalInfoTest() {
+        User user1 = new User();
+        user1.setIdentity(User.Identity.STUDENT);
+        user1.setUsername("yanghuan");
+        user1.setPassword("123");
+        user1.setEmail("987654321@qq.com");
+        userRepository.save(user1);
+        User user2 = new User();
+        user2.setEmail("123456789@qq.com");
+        user2.setUsername("yanghuan");
+        user2.setPassword("123");
+        user2.setIdentity(User.Identity.STUDENT);
+        User user3 = userRepository.findOne(user1.getId());
+        Assert.assertEquals("987654321@qq.com", user3.getEmail());
+        userService.changePersonalInfo(user1, user2);
+        user3 = userRepository.findOne(user1.getId());
+        Assert.assertEquals("3123456789@qq.com", user3.getEmail());
     }
 }
