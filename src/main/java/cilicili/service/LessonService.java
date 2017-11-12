@@ -25,7 +25,7 @@ public class LessonService {
     }
 
     @Autowired
-    private void setLessonRepository() {
+    private void setLessonRepository(LessonRepository lessonRepository) {
         this.lessonRepository = lessonRepository;
     }
 
@@ -35,7 +35,7 @@ public class LessonService {
      * @param courseId 课程ID
      * @return 所有课列表
      */
-    public Set<Lesson> getlessonList(Integer courseId) {
+    public Set<Lesson> getLessonList(Integer courseId) {
 
         Course course = courseRepository.findOne(courseId);
         return course.getLessonSet();
@@ -45,10 +45,11 @@ public class LessonService {
      * 给课程增加一节课
      *
      * @param courseId 课程ID
-     * @param lesson   一节课信息
+     * @param lessonId   一节课的ID
      */
-    public void addLesson(Integer courseId, Lesson lesson) {
+    public void addLesson(Integer courseId, Integer lessonId) {
         Course course = courseRepository.findOne(courseId);
+        Lesson lesson = lessonRepository.findOne(lessonId);
         course.getLessonSet().add(lesson);
         lesson.setCourse(course);
         courseRepository.save(course);
@@ -66,5 +67,7 @@ public class LessonService {
         Lesson lesson = lessonRepository.findOne(lessonId);
         course.getLessonSet().remove(lesson);
         lesson.setCourse(null);
+        lessonRepository.save(lesson);
+        courseRepository.save(course);
     }
 }

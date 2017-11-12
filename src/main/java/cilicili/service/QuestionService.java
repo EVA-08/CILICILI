@@ -32,10 +32,11 @@ public class QuestionService {
     /**
      * 增加一个问题
      * @param lessonId 一节课ID
-     * @param question 问题信息
+     * @param questionId 问题信息
      */
-    public void addQuestion(Integer lessonId, Question question) {
+    public void addQuestion(Integer lessonId, Integer questionId) {
         Lesson lesson = lessonRepository.findOne(lessonId);
+        Question question = questionRepository.findOne(questionId);
         lesson.getQuestionSet().add(question);
         question.setLesson(lesson);
         lessonRepository.save(lesson);

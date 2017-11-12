@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Integer> {
-    public Course findByname(String name);
+    public Course findByName(String name);
 
     public Set<Course> findAllBy();
 }

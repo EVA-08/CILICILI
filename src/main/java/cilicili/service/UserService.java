@@ -20,12 +20,13 @@ public class UserService {
     }
     /**
      * 更改密码
-     * @param user 用户个人信息
+     * @param userId 用户ID
      * @param oldPassword 旧密码
      * @param newPassword 新密码
      * @return 如果旧密码正确，则设置新密码并返回true，否则返回false
      */
-    public boolean changePassword(User user, String oldPassword, String newPassword) {
+    public boolean changePassword(Integer userId, String oldPassword, String newPassword) {
+        User user = userRepository.findOne(userId);
         if (oldPassword.equals(user.getPassword()) == false)
             return false;
         else {
@@ -39,14 +40,15 @@ public class UserService {
 
     /**
      * 更改个人信息
-     *@param olduser 原用户个人信息
-     * @param newuser 新用户个人信息
+     *
+     *@param oldUserId 原用户ID
+     * @param newUser 新用户个人信息
      */
-    public void changePersonalInfo(User olduser, User newuser) {
-        User user1;
-        user1 = userRepository.findOne(olduser.getId());
-        user1.setEmail(newuser.getEmail());
-        userRepository.save(user1);
+    public void changePersonalInfo(Integer oldUserId, User newUser) {
+        User user = userRepository.findOne(oldUserId);
+        user.setEmail(newUser.getEmail());
+        userRepository.save(user);
+
     }
     /**
      * 用户登录
