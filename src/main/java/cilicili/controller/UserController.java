@@ -38,17 +38,15 @@ public class UserController {
      * 处理登录
      *
      * @param user 登录的用户信息，包括用户名和密码
-     * @param model 模型数据
      * @param httpSession httpSession对象
      * @return 登录结果，成功则返回"success"，失败则返回"fail"
      */
     @PostMapping(path = "/login")
     @ResponseBody
-    public String login(User user, Model model, HttpSession httpSession) {
+    public String login(User user, HttpSession httpSession) {
         boolean result = userService.login(user);
         if (result) {
             User currentUser = userService.getByUsername(user.getUsername());
-            model.addAttribute("user", currentUser);
             httpSession.setAttribute("currentUser", currentUser);
             return "success";
         } else {
@@ -70,14 +68,17 @@ public class UserController {
     /**
      * 处理注册
      * @param user 注册信息
+     * @param httpSession httpSession对象
      * @return 注册结果，成功为"success"，用户名已存在为"username_already_exist"，验证码错误为"wrong_capture"
      */
     @PostMapping(path = "/register")
     @ResponseBody
-    public String register(User user) {
+    public String register(User user, HttpSession httpSession) {
         UserService.RegisterResult result = userService.register(user);
         switch (result) {
             case SUCCESS: {
+                User currentUser = userService.getByUsername(user.getUsername());
+                httpSession.setAttribute("currentUser", currentUser);
                 return "success";
             }
 
@@ -118,7 +119,6 @@ public class UserController {
         }
         Iterable<Course> courses = courseService.getAllCourse();
         model.addAttribute("courses", courses);
-
         return "index";
     }
 

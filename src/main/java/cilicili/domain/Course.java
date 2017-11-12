@@ -13,6 +13,7 @@ public class Course {
     private String introduction;
     private String name;
     private User author;
+    private String imagePath;
     private Set<Lesson> lessonSet = new HashSet<>();
     private Set<User> registeredUserSet = new HashSet<>();
     private Set<Announcement> announcementSet = new HashSet<>();
@@ -79,5 +80,14 @@ public class Course {
 
     public void setAnnouncementSet(Set<Announcement> announcementSet) {
         this.announcementSet = announcementSet;
+    }
+
+    @Column
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

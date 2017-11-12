@@ -100,6 +100,4 @@ public class UserService {
     public User getById(Integer id) {
         return userRepository.findOne(id);
     }
-
-
 }
