@@ -30,14 +30,17 @@ public class CourseServiceTest {
         this.courseService = courseService;
     }
 
+    @Autowired
     private void setCourseRepository(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
+    @Autowired
     private void setUserService(UserService userService) {
         this.userService = userService;
     }
 
+    @Autowired
     private void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -47,16 +50,18 @@ public class CourseServiceTest {
         Course course1 = new Course();
         course1.setName("software engineering");
         course1.setIntroduction("It is an useful course!");
+
         User user1 = new User();
         user1.setUsername("aaa");
         user1.setPassword("123");
         user1.setIdentity(User.Identity.STUDENT);
         userRepository.save(user1);
         user1 = userRepository.findByUsername(user1.getUsername());
+
         courseRepository.save(course1);
-        course1 = courseRepository.findByname(course1.getName());
-        courseService.registerCourse(user1, course1.getId());
-        Set<Course> RegisteredCourse = courseService.GetRegisteredCourseRet(user1);
+        course1 = courseRepository.findByName(course1.getName());
+        courseService.registerCourse(user1.getId(), course1.getId());
+        Set<Course> RegisteredCourse = courseService.GetRegisteredCourseRet(user1.getId());
         Set<Course> RegisteredCourse1 = new HashSet<>();
         RegisteredCourse1.add(course1);
         Assert.assertEquals(RegisteredCourse1, RegisteredCourse);
@@ -68,7 +73,7 @@ public class CourseServiceTest {
         course1.setName("software engineering");
         course1.setIntroduction("It is an useful course!");
         courseService.createCourse(course1);
-        Course result = courseRepository.findByname(course1.getName());
+        Course result = courseRepository.findByName(course1.getName());
         Assert.assertEquals(result, course1);
     }
 
@@ -78,18 +83,21 @@ public class CourseServiceTest {
         course1.setName("software engineering");
         course1.setIntroduction("It is an useful course!");
         courseRepository.save(course1);
-        course1 = courseRepository.findByname(course1.getName());
+        course1 = courseRepository.findByName(course1.getName());
+
         Course course2 = new Course();
         course2.setName("math");
         course2.setIntroduction("It is an interesting course!");
         courseRepository.save(course2);
-        course2 = courseRepository.findByname(course2.getName());
+        course2 = courseRepository.findByName(course2.getName());
+
         User user1 = new User();
         user1.setUsername("aaa");
         user1.setPassword("123");
         user1.setIdentity(User.Identity.STUDENT);
         userRepository.save(user1);
         user1 = userRepository.findByUsername(user1.getUsername());
+
         user1.addRegisteredCourse(course1);
         user1.addRegisteredCourse(course2);
         Set<Course> result = user1.getRegisteredCourseSet();
@@ -97,7 +105,8 @@ public class CourseServiceTest {
         registeredcourse.add(course1);
         registeredcourse.add(course2);
         Assert.assertEquals(registeredcourse, result);
-        courseService.deleteCourse(user1, course1.getId());
+
+        courseService.deleteCourse(user1.getId(), course1.getId());
         result = user1.getRegisteredCourseSet();
         registeredcourse.remove(course1);
         Assert.assertEquals(registeredcourse, result);
