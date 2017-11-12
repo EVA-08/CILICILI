@@ -31,25 +31,25 @@ public class CourseService {
 
     /**
      * 得到用户注册课程集合
-     * @param user 用户个人信息
-     * @return 用户注册的课程集合
+     * @param userId 用户Id
+     * @return 用户注册的所有课程
      */
-    public Set<Course> GetRegisteredCourseRet(User user) {
+    public Set<Course> GetRegisteredCourseRet(Integer userId) {
+        User user = userRepository.findOne(userId);
         return user.getRegisteredCourseSet();
     }
 
     /**
      * 注册课程
      *
-     * @param user     用户
+     * @param userId     用户ID
      * @param courseId 课程ID
      */
-    public void registerCourse(User user, Integer courseId) {
-        User user1 = userRepository.findOne(user.getId());
-        Course course1 = courseRepository.findOne(courseId);
-        user1.addRegisteredCourse(course1);
-        userRepository.save(user1);
-        courseRepository.save(course1);
+    public void registerCourse(Integer userId, Integer courseId) {
+        User user = userRepository.findOne(userId);
+        Course course = courseRepository.findOne(courseId);
+        user.addRegisteredCourse(course);
+        userRepository.save(user);
     }
     /**
      * 创建课程
@@ -68,12 +68,11 @@ public class CourseService {
      *
      * @param courseId 课程ID
      */
-    public void deleteCourse(User user, Integer courseId) {
-        User user1 = userRepository.findOne(user.getId());
-        Course course1 = courseRepository.findOne(courseId);
-        user1.removeRegisteredCourse(course1);
-        userRepository.save(user1);
-        courseRepository.save(course1);
+    public void deleteCourse(Integer userId, Integer courseId) {
+        User user = userRepository.findOne(userId);
+        Course course = courseRepository.findOne(courseId);
+        user.removeRegisteredCourse(course);
+        userRepository.save(user);
     }
 
     /**
@@ -83,8 +82,7 @@ public class CourseService {
      * @return 课程列表
      */
     public Set<Course> fuzzyQueryCourseList(String queryString) {
-        return null;
-
+        return courseRepository.findByNameContaining(queryString);
     }
 
     /**

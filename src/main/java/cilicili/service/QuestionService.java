@@ -39,7 +39,6 @@ public class QuestionService {
         lesson.getQuestionSet().add(question);
         question.setLesson(lesson);
         lessonRepository.save(lesson);
-        questionRepository.save(question);
     }
 
     /**

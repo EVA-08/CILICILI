@@ -52,13 +52,14 @@ public class UserServiceTest {
         user.setIdentity(User.Identity.STUDENT);
         user.setUsername("abc");
         userRepository.save(user);
+        user = userRepository.findByUsername(user.getUsername());
 
-        boolean result = userService.changePassword(user, "asd", "bbb");
+        boolean result = userService.changePassword(user.getId(), "asd", "bbb");
         Assert.assertEquals(false, result);
         User user1 = userRepository.findOne(user.getId());
         Assert.assertEquals("aaa", user1.getPassword());
 
-        result = userService.changePassword(user, "aaa", "bbb");
+        result = userService.changePassword(user.getId(), "aaa", "bbb");
         Assert.assertEquals(true, result);
         user1 = userRepository.findOne(user.getId());
         Assert.assertEquals("bbb", user1.getPassword());
@@ -72,15 +73,17 @@ public class UserServiceTest {
         user1.setPassword("123");
         user1.setEmail("987654321@qq.com");
         userRepository.save(user1);
+        user1 = userRepository.findByUsername(user1.getUsername());
+
         User user2 = new User();
         user2.setEmail("123456789@qq.com");
         user2.setUsername("yanghuan");
         user2.setPassword("123");
         user2.setIdentity(User.Identity.STUDENT);
-        User user3 = userRepository.findOne(user1.getId());
-        Assert.assertEquals("987654321@qq.com", user3.getEmail());
-        userService.changePersonalInfo(user1, user2);
-        user3 = userRepository.findOne(user1.getId());
-        Assert.assertEquals("3123456789@qq.com", user3.getEmail());
+
+
+        Assert.assertEquals("987654321@qq.com", user1.getEmail());
+        userService.changePersonalInfo(user1.getId(), user2);
+        Assert.assertEquals("123456789@qq.com", user1.getEmail());
     }
 }
