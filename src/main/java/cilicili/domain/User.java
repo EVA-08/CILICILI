@@ -1,7 +1,5 @@
 package cilicili.domain;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,7 +52,7 @@ public class User {
         this.id = id;
     }
 
-    @NaturalId
+    @Column(nullable = false, unique = true)
     public String getUsername() {
         return username;
     }
@@ -109,6 +107,7 @@ public class User {
     public void setCreatedCourseSet(Set<Course> createdCourseSet) {
         this.createdCourseSet = createdCourseSet;
     }
+
 
     @Override
     public String toString() {
