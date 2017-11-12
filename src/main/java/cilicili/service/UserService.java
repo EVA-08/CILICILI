@@ -39,13 +39,15 @@ public class UserService {
 
     /**
      * 更改个人信息
-     *
-     * @param user 用户个人信息
+     *@param olduser 原用户个人信息
+     * @param newuser 新用户个人信息
      */
-    public void changePersonalInfo(User user) {
-
+    public void changePersonalInfo(User olduser, User newuser) {
+        User user1;
+        user1 = userRepository.findOne(olduser.getId());
+        user1.setEmail(newuser.getEmail());
+        userRepository.save(user1);
     }
-
     /**
      * 用户登录
      *
@@ -77,6 +79,26 @@ public class UserService {
 
     public enum RegisterResult {
         USERNAME_ALREADY_EXIST, SUCCESS, WRONG_CAPTURE
+    }
+
+    /**
+     * 通过用户名得到user对象
+     *
+     * @param username 用户名
+     * @return user 用户个人信息
+     */
+    public User getByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    /**
+     * 通过用户id得到用户对象
+     *
+     * @param id 用户id
+     * @return User 用户个人信息
+     */
+    public User getById(Integer id) {
+        return userRepository.findOne(id);
     }
 
 
