@@ -19,19 +19,9 @@ public class CourseController {
      */
     @GetMapping(path = "/course/{courseId}")
     public String course(Integer courseId, Model model) {
-        return "";
+
+        return "course_info";
     }
 
-    /**
-     * 获得相关数据，进入课程结构页面
-     *
-     * @param courseId 课程ID
-     * @param model    模型数据
-     * @return 课程结构页面
-     */
-    @GetMapping(path = "/course/{courseId}/structure")
-    public String courseStructure(Integer courseId, Model model) {
-        return "";
-    }
 
 }

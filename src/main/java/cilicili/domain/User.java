@@ -18,6 +18,10 @@ public class User {
     private Set<Notice> noticeSet = new HashSet<>();
     private Set<History> historySet = new HashSet<>();
     private Set<Course> createdCourseSet = new HashSet<>();
+    private Set<Info> educationSet = new HashSet<>();
+    private Set<Info> teachingSet = new HashSet<>();
+    private Set<Info> awardSet = new HashSet<>();
+    private Info aphorism;
 
     public enum Identity {
         TEACHER, STUDENT
@@ -108,6 +112,41 @@ public class User {
         this.createdCourseSet = createdCourseSet;
     }
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Info> getEducationSet() {
+        return educationSet;
+    }
+
+    public void setEducationSet(Set<Info> educationSet) {
+        this.educationSet = educationSet;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Info> getTeachingSet() {
+        return teachingSet;
+    }
+
+    public void setTeachingSet(Set<Info> teachingSet) {
+        this.teachingSet = teachingSet;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Info> getAwardSet() {
+        return awardSet;
+    }
+
+    public void setAwardSet(Set<Info> awardSet) {
+        this.awardSet = awardSet;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    public Info getAphorism() {
+        return aphorism;
+    }
+
+    public void setAphorism(Info aphorism) {
+        this.aphorism = aphorism;
+    }
 
     @Override
     public String toString() {
