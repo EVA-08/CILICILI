@@ -61,7 +61,7 @@ public class CourseServiceTest {
         courseRepository.save(course1);
         course1 = courseRepository.findByName(course1.getName());
         courseService.registerCourse(user1.getId(), course1.getId());
-        Set<Course> RegisteredCourse = courseService.GetRegisteredCourseRet(user1.getId());
+        Set<Course> RegisteredCourse = courseService.GetRegisteredCourseSet(user1.getId());
         Set<Course> RegisteredCourse1 = new HashSet<>();
         RegisteredCourse1.add(course1);
         Assert.assertEquals(RegisteredCourse1, RegisteredCourse);

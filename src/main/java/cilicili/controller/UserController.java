@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.Set;
 
 
 /**
@@ -60,9 +61,10 @@ public class UserController {
      * @param httpSession httpSession对象
      * @return 首页页面
      */
+    @GetMapping(path = "/logout")
     public String logout(HttpSession httpSession) {
         httpSession.removeAttribute("currentUser");
-        return "index";
+        return "redirect:/";
     }
 
     /**
@@ -116,6 +118,8 @@ public class UserController {
         User currentUser = (User) httpSession.getAttribute("currentUser");
         if (currentUser != null) {
             model.addAttribute("user", currentUser);
+            Set<Course> registeredCourses = courseService.GetRegisteredCourseSet(currentUser.getId());
+            model.addAttribute("registeredCourses", registeredCourses);
         }
         Iterable<Course> courses = courseService.getAllCourse();
         model.addAttribute("courses", courses);
