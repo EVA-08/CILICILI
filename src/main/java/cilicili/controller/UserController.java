@@ -1,45 +1,98 @@
 package cilicili.controller;
 
+import cilicili.domain.Course;
 import cilicili.domain.User;
+import cilicili.service.CourseService;
+import cilicili.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+
+import javax.servlet.http.HttpSession;
+import java.util.Set;
 
 
 /**
  * 用户相关控制器
  */
 @Controller
-@SessionAttributes("user")
 public class UserController {
 
-    private User user;
+    private UserService userService;
+    private CourseService courseService;
+
+    @Autowired
+    private void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
+    private void setCourseService(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     /**
      * 处理登录
      *
      * @param user 登录的用户信息，包括用户名和密码
+     * @param httpSession httpSession对象
      * @return 登录结果，成功则返回"success"，失败则返回"fail"
      */
     @PostMapping(path = "/login")
     @ResponseBody
-    public String login(User user) {
-        return "";
+    public String login(User user, HttpSession httpSession) {
+        boolean result = userService.login(user);
+        if (result) {
+            User currentUser = userService.getByUsername(user.getUsername());
+            httpSession.setAttribute("currentUser", currentUser);
+            return "success";
+        } else {
+            return "fail";
+        }
+    }
+
+    /**
+     * 用户登出
+     *
+     * @param httpSession httpSession对象
+     * @return 首页页面
+     */
+    @GetMapping(path = "/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.removeAttribute("currentUser");
+        return "redirect:/";
     }
 
     /**
      * 处理注册
-     *
      * @param user 注册信息
-     * @return 注册结果，成功为"success"，失败为"fail"
+     * @param httpSession httpSession对象
+     * @return 注册结果，成功为"success"，用户名已存在为"username_already_exist"，验证码错误为"wrong_capture"
      */
     @PostMapping(path = "/register")
     @ResponseBody
-    public String register(User user) {
-        return "";
+    public String register(User user, HttpSession httpSession) {
+        UserService.RegisterResult result = userService.register(user);
+        switch (result) {
+            case SUCCESS: {
+                User currentUser = userService.getByUsername(user.getUsername());
+                httpSession.setAttribute("currentUser", currentUser);
+                return "success";
+            }
+
+            case USERNAME_ALREADY_EXIST: {
+                return "username_already_exist";
+            }
+
+            case WRONG_CAPTURE: {
+                return "wrong_capture";
+            }
+        }
+        return "username_already_exist";
     }
 
     /**
@@ -50,7 +103,7 @@ public class UserController {
      * @return 课程结构页面
      */
     @PostMapping(path = "/registerCourse/{courseId}")
-    public String registerCourse(User user, Integer courseId) {
+    public String registerCourse(User user, @PathVariable Integer courseId) {
         return "";
     }
 
@@ -61,7 +114,15 @@ public class UserController {
      * @return 首页页面
      */
     @GetMapping(path = "/")
-    public String index(Model model) {
+    public String index(Model model, HttpSession httpSession) {
+        User currentUser = (User) httpSession.getAttribute("currentUser");
+        if (currentUser != null) {
+            model.addAttribute("user", currentUser);
+            Set<Course> registeredCourses = courseService.GetRegisteredCourseSet(currentUser.getId());
+            model.addAttribute("registeredCourses", registeredCourses);
+        }
+        Iterable<Course> courses = courseService.getAllCourse();
+        model.addAttribute("courses", courses);
         return "index";
     }
 
@@ -92,7 +153,6 @@ public class UserController {
 
     /**
      * 更改个人信息
-     *
      * @param user 更改的用户信息
      * @return 更改结果，成功为"success"，失败为"fail"
      */
@@ -100,5 +160,10 @@ public class UserController {
     @ResponseBody
     public String changePersonalInfo(User user) {
         return "";
+    }
+
+    @GetMapping(path = "/login_register")
+    public String loginRegister() {
+        return "login_register";
     }
 }

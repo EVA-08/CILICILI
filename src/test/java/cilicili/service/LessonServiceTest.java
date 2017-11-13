@@ -61,8 +61,8 @@ public class LessonServiceTest {
         lessonRepository.save(lesson2);
         lesson2 = lessonRepository.findByName(lesson2.getName());
 
-        lessonService.addLesson(course.getId(), lesson1.getId());
-        lessonService.addLesson(course.getId(), lesson2.getId());
+        lessonService.addLesson(course.getId(), lesson1);
+        lessonService.addLesson(course.getId(), lesson2);
         Set<Lesson> result = lessonService.getLessonList(course.getId());
         Set<Lesson> ExpectedLessonSet = new HashSet<>();
         ExpectedLessonSet.add(lesson1);

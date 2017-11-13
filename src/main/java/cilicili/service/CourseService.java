@@ -34,7 +34,7 @@ public class CourseService {
      * @param userId 用户Id
      * @return 用户注册的所有课程
      */
-    public Set<Course> GetRegisteredCourseRet(Integer userId) {
+    public Set<Course> GetRegisteredCourseSet(Integer userId) {
         User user = userRepository.findOne(userId);
         return user.getRegisteredCourseSet();
     }
