@@ -1,10 +1,13 @@
 package cilicili.service;
 
+import cilicili.domain.Info;
 import cilicili.domain.User;
 import cilicili.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
 
 /**
  * 用户相关业务
@@ -13,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserService {
     private UserRepository userRepository;
-
     @Autowired
     private void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     /**
      * 更改密码
      * @param userId 用户ID
@@ -101,5 +104,85 @@ public class UserService {
      */
     public User getById(Integer id) {
         return userRepository.findOne(id);
+    }
+
+    /**
+     * 获得用户教育经历信息
+     *
+     * @param userId 用户ID
+     * @return 用户教育经历信息列表
+     */
+    public Set<Info> getEducationSet(Integer userId) {
+        User user = userRepository.findOne(userId);
+        return user.getEducationSet();
+    }
+
+    /**
+     * 获得用户教学经历信息
+     *
+     * @param userId 用户ID
+     * @return 用户教学经历信息列表
+     */
+    public Set<Info> getTeachingSet(Integer userId) {
+        User user = userRepository.findOne(userId);
+        return user.getTeachingSet();
+    }
+
+    /**
+     * 获得用户获奖经历信息
+     *
+     * @param userId 用户ID
+     * @return 用户获奖经历信息列表
+     */
+    public Set<Info> getAwardSet(Integer userId) {
+        User user = userRepository.findOne(userId);
+        return user.getAwardSet();
+    }
+
+    /**
+     * 获得用户格言
+     *
+     * @param userId 用户ID
+     * @return 用户格言
+     */
+    public Info getAphorism(Integer userId) {
+        User user = userRepository.findOne(userId);
+        return user.getAphorism();
+    }
+
+    /**
+     * 给用户增加教育经历信息
+     *
+     * @param userId        用户ID
+     * @param educationInfo 教育经历
+     */
+    public void addEducationInfo(Integer userId, Info educationInfo) {
+        User user = userRepository.findOne(userId);
+        user.getEducationSet().add(educationInfo);
+        userRepository.save(user);
+    }
+
+    /**
+     * 给用户增加教学经历信息
+     *
+     * @param userId       用户ID
+     * @param teachingInfo 教学经历
+     */
+    public void addTeachingInfo(Integer userId, Info teachingInfo) {
+        User user = userRepository.findOne(userId);
+        user.getTeachingSet().add(teachingInfo);
+        userRepository.save(user);
+    }
+
+    /**
+     * 给用户增加获奖经历信息
+     *
+     * @param userId    用户ID
+     * @param awardInfo 获奖经历
+     */
+    public void aadAwardInfo(Integer userId, Info awardInfo) {
+        User user = userRepository.findOne(userId);
+        user.getAwardSet().add(awardInfo);
+        userRepository.save(user);
     }
 }
