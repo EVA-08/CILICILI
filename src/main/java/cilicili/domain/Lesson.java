@@ -39,7 +39,7 @@ public class Lesson {
     }
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinTable(name = "lesson_resource", joinColumns = {@JoinColumn(name = "lesson_id")},
+    @JoinTable(name = "lesson_course", joinColumns = {@JoinColumn(name = "lesson_id")},
             inverseJoinColumns = {@JoinColumn(name = "resource_id")})
     public Set<Resource> getResourceSet() {
         return resourceSet;

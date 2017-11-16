@@ -21,5 +21,8 @@ public class LessonController {
         return "";
     }
 
-
+    @GetMapping(path = "testLesson")
+    public String testLesson() {
+        return "lesson";
+    }
 }
