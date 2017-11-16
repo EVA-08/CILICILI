@@ -106,4 +106,14 @@ public class CourseService {
     public Iterable<Course> getAllCourse() {
         return courseRepository.findAll();
     }
+
+    /**
+     * 根据课程ID得到课程
+     *
+     * @param courseId 课程ID
+     * @return 课程
+     */
+    public Course getCourse(Integer courseId) {
+        return courseRepository.findOne(courseId);
+    }
 }
