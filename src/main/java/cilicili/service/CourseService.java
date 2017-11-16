@@ -64,17 +64,30 @@ public class CourseService {
     }
 
     /**
-     * 删除课程
-     *
+     * 退选课程
+     *@param  userId  用户ID
      * @param courseId 课程ID
      */
-    public void deleteCourse(Integer userId, Integer courseId) {
+    public void unregisterCourse(Integer userId, Integer courseId) {
         User user = userRepository.findOne(userId);
         Course course = courseRepository.findOne(courseId);
         user.removeRegisteredCourse(course);
         userRepository.save(user);
     }
 
+    /**
+     * 删除课程
+     *
+     * @param courseId 课程ID
+     */
+    public void deleteCourse(Integer courseId) {
+        Course course = courseRepository.findOne(courseId);
+        for (User user : course.getRegisteredUserSet()) {
+            user.removeRegisteredCourse(course);
+            userRepository.save(user);
+        }
+        courseRepository.delete(courseId);
+    }
     /**
      * 对课程进行模糊查询
      *
@@ -92,5 +105,15 @@ public class CourseService {
      */
     public Iterable<Course> getAllCourse() {
         return courseRepository.findAll();
+    }
+
+    /**
+     * 根据课程ID得到课程
+     *
+     * @param courseId 课程ID
+     * @return 课程
+     */
+    public Course getCourse(Integer courseId) {
+        return courseRepository.findOne(courseId);
     }
 }

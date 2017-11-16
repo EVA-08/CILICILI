@@ -56,7 +56,6 @@ public class CourseServiceTest {
         user1.setPassword("123");
         user1.setIdentity(User.Identity.STUDENT);
         userRepository.save(user1);
-        user1 = userRepository.findByUsername(user1.getUsername());
 
         courseRepository.save(course1);
         course1 = courseRepository.findByName(course1.getName());
@@ -77,26 +76,24 @@ public class CourseServiceTest {
         Assert.assertEquals(result, course1);
     }
 
+
     @Test
-    public void deleteCourseTest() {
+    public void unRegisterCourseTest() {
         Course course1 = new Course();
         course1.setName("software engineering");
         course1.setIntroduction("It is an useful course!");
         courseRepository.save(course1);
-        course1 = courseRepository.findByName(course1.getName());
 
         Course course2 = new Course();
         course2.setName("math");
         course2.setIntroduction("It is an interesting course!");
         courseRepository.save(course2);
-        course2 = courseRepository.findByName(course2.getName());
 
         User user1 = new User();
         user1.setUsername("aaa");
         user1.setPassword("123");
         user1.setIdentity(User.Identity.STUDENT);
         userRepository.save(user1);
-        user1 = userRepository.findByUsername(user1.getUsername());
 
         user1.addRegisteredCourse(course1);
         user1.addRegisteredCourse(course2);
@@ -106,12 +103,82 @@ public class CourseServiceTest {
         registeredcourse.add(course2);
         Assert.assertEquals(registeredcourse, result);
 
-        courseService.deleteCourse(user1.getId(), course1.getId());
+        courseService.unregisterCourse(user1.getId(), course1.getId());
         result = user1.getRegisteredCourseSet();
         registeredcourse.remove(course1);
         Assert.assertEquals(registeredcourse, result);
     }
 
+    @Test
+    public void fuzzyQueryCourseListTest() {
+        Course course1 = new Course();
+        course1.setName("Computer Network");
+        course1.setIntroduction("ComputerNetwork...");
+        courseRepository.save(course1);
+
+        Course course2 = new Course();
+        course2.setName("Computer Graphics");
+        course2.setIntroduction("ComputerGraphics...");
+        courseRepository.save(course2);
+
+        Course course3 = new Course();
+        course3.setName(" Computer Organization");
+        course3.setIntroduction("ComputerOrganization...");
+        courseRepository.save(course3);
+
+        Set<Course> result = courseService.fuzzyQueryCourseList("Computer");
+        Set<Course> ExpectedCourseSet = new HashSet<>();
+        ExpectedCourseSet.add(course1);
+        ExpectedCourseSet.add(course2);
+        ExpectedCourseSet.add(course3);
+        Assert.assertEquals(ExpectedCourseSet, result);
+    }
+
+    @Test
+    public void deleteCourseTest() {
+        User user1 = new User();
+        user1.setIdentity(User.Identity.STUDENT);
+        user1.setUsername("a");
+        user1.setPassword("aaa");
+        userRepository.save(user1);
+
+        Course course1 = new Course();
+        course1.setName("A");
+        course1.setIntroduction("AAA");
+        courseRepository.save(course1);
+
+        Course course2 = new Course();
+        course2.setName("B");
+        course2.setIntroduction("BBB");
+        courseRepository.save(course2);
+
+        Course course3 = new Course();
+        course3.setName("C");
+        course3.setIntroduction("CCC");
+        courseRepository.save(course3);
+
+        courseService.registerCourse(user1.getId(), course1.getId());
+        courseService.registerCourse(user1.getId(), course2.getId());
+        courseService.registerCourse(user1.getId(), course3.getId());
+
+        Set<Course> result = courseService.GetRegisteredCourseSet(user1.getId());
+        Set<Course> expectedCourseSet = new HashSet<>();
+        expectedCourseSet.add(course1);
+        expectedCourseSet.add(course2);
+        expectedCourseSet.add(course3);
+        Assert.assertEquals(expectedCourseSet, result);
+        Assert.assertNotNull(course1.getId());
+
+        courseService.deleteCourse(course1.getId());
+        result = courseService.GetRegisteredCourseSet(user1.getId());
+        expectedCourseSet.remove(course1);
+        Assert.assertEquals(expectedCourseSet, result);
+        Assert.assertEquals(null, courseRepository.findByName("A"));
+    }
+
+    ;
+
 
 }
+
 
