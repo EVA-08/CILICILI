@@ -1,0 +1,108 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>观看视频</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <link rel="stylesheet" href="/css/font-icon.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+<!-- header top section -->
+<section class="banner" role="banner">
+  <header id="header">
+    <div class="header-content clearfix"><a class="logo" href="index.html"><img src="/images/logo.png" alt=""></a>
+      <nav class="navigation" role="navigation">
+        <ul class="primary-nav">
+          <li th:text="'Hi! ' + ${currentUser.username} + '.'">Hi! 潘彦岑.</li>
+          <li> |</li>
+          <li><a href="mainlto:hello@phdl.co">返回首页</a></li>
+        </ul>
+      </nav>
+      <a href="#" class="nav-toggle">Menu<span></span></a></div>
+  </header>
+</section>
+<!-- header top section -->
+<!-- header content section -->
+<section id="works-info" class="section" style="padding-bottom: 20px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-sm-6 hero">
+        <div class="hero-content">
+          <h1><font face="微软雅黑" th:text="${currentLesson.name}">数学分析</font></h1>
+          <p style="padding-top:5px;"><font size="5px" th:text="'第' + ${currentLesson.sequence} + '节'">*第1节.
+            Number.</font></p>
+        </div>
+        <!-- hero -->
+      </div>
+      <div class="col-md-5 col-sm-6 hero text-center">
+        <div class="hero-content"><a href="https://www.designstub.com" class="btn">Visit Site <i
+            class="fa fa-long-arrow-right"></i> </a></div>
+        <!-- hero -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- header content section -->
+<!-- portfolio grid section -->
+<section id="work-detail">
+  <div class="container">
+    <hr>
+    <video th:src="@{'/video/' + ${currentLesson.video.id}}" width="1080" height="720" controls="controls">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>
+<!-- portfolio grid section -->
+<!-- service section -->
+<section id="backto" class="work-detail section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 text-center section"><a href="course-info.html"><i
+          class="fa fa-th fa-2x"></i></a>
+        <p>Back to projects</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- service section -->
+<!-- footer section -->
+<footer class="footer">
+  <div class="container">
+    <div class="col-md-6 left">
+      <h4>Let's learn together</h4>
+      <p> Call: 15754310375 OR Email : <a href="fr_bernkastel@outlook.com"> fr_bernkastel@outlook.com </a></p>
+    </div>
+    <div class="col-md-6 right">
+      <p>© 2017 TAQ Honors Program. All Rights Reserved<br>
+        CSST. <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">吉林大学</a> - 计算机科学 <a
+            href="http://www.cssmoban.com/" title="网页模板" target="_blank">JLU</a></p>
+    </div>
+  </div>
+</footer>
+<!-- footer section -->
+
+<!-- JS FILES -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/jquery.fancybox.pack.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/modernizr.js"></script>
+<script src="/js/lesson.js"></script>
+</body>
+</html>

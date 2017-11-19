@@ -106,25 +106,21 @@ public class UserServiceTest {
         userRepository.save(user);
 
         Info educationInfo = new Info();
-        educationInfo.setType(Info.Type.EDUCATION);
         educationInfo.setDescription("JiLin University");
         infoRepository.save(educationInfo);
         userService.addEducationInfo(user.getId(), educationInfo);
 
         Info teachingInfo = new Info();
-        teachingInfo.setType(Info.Type.TEACHING);
         teachingInfo.setDescription("Software Engineering");
         infoRepository.save(teachingInfo);
         userService.addTeachingInfo(user.getId(), teachingInfo);
 
         Info awardInfo = new Info();
-        awardInfo.setType(Info.Type.AWARD);
         awardInfo.setDescription("AAAAAAAAAAA");
         infoRepository.save(awardInfo);
         userService.aadAwardInfo(user.getId(), awardInfo);
 
         Info aphorismInfo = new Info();
-        aphorismInfo.setType(Info.Type.APHORISM);
         aphorismInfo.setDescription("BBBBBBBBB");
         infoRepository.save(aphorismInfo);
         user.setAphorism(aphorismInfo);

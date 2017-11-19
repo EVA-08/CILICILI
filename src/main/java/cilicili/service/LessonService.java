@@ -67,4 +67,8 @@ public class LessonService {
         lesson.setCourse(null);
         courseRepository.save(course);
     }
+
+    public Lesson findByCourseIdAndSequence(Integer courseId, Integer sequence) {
+        return lessonRepository.findByCourseIdAndSequence(courseId, sequence);
+    }
 }
