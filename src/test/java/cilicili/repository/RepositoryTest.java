@@ -119,7 +119,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testUserRepository() throws Exception {
+    public void userRepositoryTest() throws Exception {
         User user = new User();
         user.setUsername("Jack");
         user.setPassword("4399");
@@ -133,7 +133,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testUserCourseRelationship() {
+    public void userCourseRelationshipTest() {
         User user1 = new User();
         user1.setUsername("Beep");
         user1.setPassword("4444");
@@ -172,7 +172,7 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testLessonResourceRelationship() {
+    public void lessonResourceRelationshipTest() {
         Lesson lesson = new Lesson();
         Resource resource = new Resource();
         resource.setName("好资源");
@@ -181,5 +181,23 @@ public class RepositoryTest {
         lessonRepository.save(lesson);
         lesson = lessonRepository.findOne(lesson.getId());
         Assert.assertEquals(1, lesson.getResourceSet().size());
+    }
+
+    @Test
+    public void findByCourseAndSequenceTest() {
+        Course course = new Course();
+        Lesson lesson = new Lesson();
+        lesson.setSequence(1);
+        Lesson lesson1 = new Lesson();
+        lesson1.setSequence(2);
+        course.addLesson(lesson);
+        course.addLesson(lesson1);
+        courseRepository.save(course);
+        course = courseRepository.findOne(course.getId());
+        Lesson lesson2 = lessonRepository.findByCourseIdAndSequence(course.getId(), 1);
+        Lesson lesson3 = lessonRepository.findByCourseIdAndSequence(course.getId(), 2);
+
+        Assert.assertEquals(lesson.getId(), lesson2.getId());
+        Assert.assertEquals(lesson1.getId(), lesson3.getId());
     }
 }

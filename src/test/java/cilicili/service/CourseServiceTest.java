@@ -49,7 +49,7 @@ public class CourseServiceTest {
     public void registeredCourseTest() {
         Course course1 = new Course();
         course1.setName("software engineering");
-        course1.setIntroduction("It is an useful resource!");
+        course1.setIntroduction("It is an useful resources!");
 
         User user1 = new User();
         user1.setUsername("aaa");
@@ -70,7 +70,7 @@ public class CourseServiceTest {
     public void creatCourse() {
         Course course1 = new Course();
         course1.setName("software engineering");
-        course1.setIntroduction("It is an useful resource!");
+        course1.setIntroduction("It is an useful resources!");
         courseService.createCourse(course1);
         Course result = courseRepository.findByName(course1.getName());
         Assert.assertEquals(result, course1);
@@ -81,12 +81,12 @@ public class CourseServiceTest {
     public void unRegisterCourseTest() {
         Course course1 = new Course();
         course1.setName("software engineering");
-        course1.setIntroduction("It is an useful resource!");
+        course1.setIntroduction("It is an useful resources!");
         courseRepository.save(course1);
 
         Course course2 = new Course();
         course2.setName("math");
-        course2.setIntroduction("It is an interesting resource!");
+        course2.setIntroduction("It is an interesting resources!");
         courseRepository.save(course2);
 
         User user1 = new User();
@@ -175,8 +175,6 @@ public class CourseServiceTest {
         Assert.assertEquals(expectedCourseSet, result);
         Assert.assertEquals(null, courseRepository.findByName("A"));
     }
-
-    ;
 
 
 }

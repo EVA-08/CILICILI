@@ -1,6 +1,7 @@
 package cilicili.domain;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class Lesson {
     private Set<Question> QuestionSet = new HashSet<>();
     private Course course;
     private Integer sequence;
+    private Date startDate;
 
     @Id
     @GeneratedValue
@@ -39,7 +41,7 @@ public class Lesson {
     }
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinTable(name = "lesson_course", joinColumns = {@JoinColumn(name = "lesson_id")},
+    @JoinTable(name = "lesson_resource", joinColumns = {@JoinColumn(name = "lesson_id")},
             inverseJoinColumns = {@JoinColumn(name = "resource_id")})
     public Set<Resource> getResourceSet() {
         return resourceSet;
@@ -101,6 +103,15 @@ public class Lesson {
 
     public void setSequence(Integer sequence) {
         this.sequence = sequence;
+    }
+
+    @Column
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     /**

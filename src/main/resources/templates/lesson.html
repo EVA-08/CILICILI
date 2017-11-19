@@ -1,12 +1,12 @@
 <!doctype html>
 <!--[if lt IE 7]>
-<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
 <!--[if IE 7]>
-<html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<html class="no-js lt-ie9 lt-ie8" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
 <!--[if IE 8]>
-<html class="no-js lt-ie9" lang=""> <![endif]-->
+<html class="no-js lt-ie9" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="">
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="">
 <!--<![endif]-->
 <head>
   <meta charset="utf-8">
@@ -24,10 +24,10 @@
 <!-- header top section -->
 <section class="banner" role="banner">
   <header id="header">
-    <div class="header-content clearfix"><a class="logo" href="index.html"><img src="images/logo.png" alt=""></a>
+    <div class="header-content clearfix"><a class="logo" href="index.html"><img src="/images/logo.png" alt=""></a>
       <nav class="navigation" role="navigation">
         <ul class="primary-nav">
-          <li>Hi! 潘彦岑.</li>
+          <li th:text="'Hi! ' + ${currentUser.username} + '.'">Hi! 潘彦岑.</li>
           <li> |</li>
           <li><a href="mainlto:hello@phdl.co">返回首页</a></li>
         </ul>
@@ -42,9 +42,9 @@
     <div class="row">
       <div class="col-md-7 col-sm-6 hero">
         <div class="hero-content">
-          <h1><font face="微软雅黑">数学分析</font></h1>
-          <p style="color:BLACK;"><font size="5px">第1章. Number and Limits.</font></p>
-          <p style="padding-top:5px;"><font size="5px">*第1节. Number.</font></p>
+          <h1><font face="微软雅黑" th:text="${currentLesson.name}">数学分析</font></h1>
+          <p style="padding-top:5px;"><font size="5px" th:text="'第' + ${currentLesson.sequence} + '节'">*第1节.
+            Number.</font></p>
         </div>
         <!-- hero -->
       </div>
@@ -61,7 +61,7 @@
 <section id="work-detail">
   <div class="container">
     <hr>
-    <video src="/course/video/6.mp4" width="1080" height="720" controls="controls">
+    <video th:src="@{'/video/' + ${currentLesson.video.id}}" width="1080" height="720" controls="controls">
       Your browser does not support the video tag.
     </video>
   </div>

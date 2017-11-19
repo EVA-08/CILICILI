@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LessonRepository extends CrudRepository<Lesson, Integer> {
-    public Lesson findByName(String name);
+    Lesson findByName(String name);
+
+    Lesson findByCourseIdAndSequence(Integer courseId, Integer sequence);
 }

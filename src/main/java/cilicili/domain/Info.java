@@ -1,24 +1,17 @@
 package cilicili.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
- * 信息项，通过类别和描述来保存小份信息，减少数据库表的数目
+ * 信息项
  */
 @Entity
 public class Info {
-    private Type type;
     private Integer id;
     private String description;
-
-    @Enumerated(EnumType.STRING)
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
 
     @GeneratedValue
     @Id
@@ -39,7 +32,4 @@ public class Info {
         this.description = description;
     }
 
-    public enum Type {
-        EDUCATION, TEACHING, AWARD, APHORISM
-    }
 }
