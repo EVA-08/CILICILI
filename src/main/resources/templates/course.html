@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>课程信息</title>
+  <link rel="stylesheet" href="/courses/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/courses/css/font-icon.css">
+  <link rel="alternate" type="application/rss+xml" title="" href="feed/index.html">
+  <link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
+        type="text/css">
+  <link rel="stylesheet" href="/courses/css/style.css">
+  <link rel="stylesheet" href="/courses/css/prettify.css">
+</head>
+<body>
+<div class="wrapper">
+  <nav>
+
+    <div class="pull-left">
+      <h1><a href="javascript:"><img src="/courses/img/icon.png" alt="Free Documentation Template Icon"/>
+        <span>课程信息</span></a></h1>
+    </div>
+
+    <div class="pull-right">
+      <a href="#/free-documentation-html-template-docweb" target="_blank" class="btn btn-download"><img
+          src="/courses/img/download.png" width="25" alt="Download Free Documentation Template"> Download Now</a>
+    </div>
+
+  </nav>
+  <header>
+    <div class="container" style="margin-left:5px;">
+      <h2 class="lone-header" th:text="${currentCourse.name} + '[主讲人：' + ${currentCourse.author.username} + ']'">数学分析
+        [主讲人：Hinton]</h2>
+    </div>
+  </header>
+  <section>
+    <div class="container" style="margin-left:15px;">
+      <ul class="docs-nav">
+        <li><strong>Getting Started</strong></li>
+        <li><a href="#intro" class="cc-active">课程介绍</a></li>
+        <li><a href="#teach" class="cc-active">教师信息</a></li>
+        <li><a href="#system" class="cc-active">课程体系</a></li>
+      </ul>
+
+
+      <div class="docs-content">
+        <h2> Details</h2>
+        <h3 id="intro"> 课程介绍</h3>
+        <div class="row">
+          <p class="blog-post-meta" style="margin:20px;" th:text="'      ' + ${currentCourse.introduction}">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本课程为专业基础课。数学分析课程是统计学专业学生一门必修的重要的基础理论课,
+            通过本课程的教学，应使学生掌握数学分析的基本概念、基本理论和基本运算，掌握数学分析的思想方法。提高学生的逻辑推理能力、抽象思维能力，计算能力以及创新精神，培养学生良好的数学素养和分析问题、解决问题的能力。使学生受到运用数学分析方法解决实际问题的初步训练，为今后课程的学习和继续深造奠定坚实的基础。
+          </p>
+        </div>
+        <hr>
+        <h3 id="teach"> 教师信息</h3>
+        <i class="fa fa-line-chart" style="color:BLACK;"></i>
+        <h4>&nbsp;&nbsp;教育经历 </h4>
+        <ul th:each="education: ${currentCourse.author.educationSet}">
+          <li th:text="${education?.description}">吉林大学 本科；</li>
+
+        </ul>
+        <h4>&nbsp;&nbsp;教学经历 </h4>
+        <ul th:each="teaching: ${currentCourse.author.teachingSet}">
+          <li th:text="${teaching?.description}">《数据结构与算法设计》 主讲人；</li>
+        </ul>
+        <h4>&nbsp;&nbsp;获奖经历 </h4>
+        <ul th:each="award: ${currentCourse.author.awardSet}">
+          <li th:text="${award?.description}">中科院 “百人计划”；</li>
+        </ul>
+        <h4>&nbsp;&nbsp;治学格言 </h4>
+        <p style="background-color: rgba(180, 210, 223, 0.49);"
+           th:text="'      ' + ${currentCourse.author.aphorism?.description}">
+          我需要三件东西：爱情友谊和图书。然而这三者之间何其相通！炽热的爱情可以充实图书的内容，图书又是人们最忠实的朋友。
+        </p>
+        <hr>
+
+        <h3 id="system"> 课程体系</h3>
+
+        <table class="table" style="color:BLACK;">
+          <thead>
+          <tr class="warning">
+            <th class="col-md-3">#</th>
+            <th class="col-md-3 col-md-offset-4">名称</th>
+            <th class="col-md-2">开课日期</th>
+          </tr>
+          </thead>
+          <tbody th:each="lesson, lessonStat: ${currentCourse.lessonSet}">
+          <tr style="background-color:WHITE;">
+            <td th:text="'#' + ${lessonStat.count}">#1</td>
+            <td><a th:href="@{'/course/' + ${currentCourse.id} + '/lesson/' + ${lessonStat.count}}"
+                   th:remove="${registered}? none: tag"><font th:text="${lesson.name}">实数</font></a></td>
+            <td th:text="${#dates.format(lesson.startDate, 'yyyy年MM月dd日')}">2017.10.1</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <section id="service" class="service section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5 col-sm-6">
+            <h4>欢迎加入课程！</h4>
+            <p>Nullam at enim mauris. Donec et nunc ipsum. Suspendi tempus fringilla ipsu Cras metus euismod velit
+              gravida at nunc ipsum.</p>
+          </div>
+          <div class="col-md-7 col-sm-6">
+
+            <!--
+            <div class="col-md-4 col-sm-6 service text-center"> <span class="icon icon-browser" style="color:rgba(12,12,100,0.95);font-size:48px;"></span>
+              <div class="service-content">
+                <h5>观看视频</h5>
+              </div>
+            </div>
+            -->
+            <a th:unless="${registered}" onclick="
+              var url = window.location.href;
+              var id = url.split('/').pop();
+              $.post('/course/' + id + '/register', function() {
+                location.reload(true);
+              });
+            ">
+              <div class="col-md-4 col-sm-6 service text-center"><span class="icon icon-trophy"
+                                                                       style="color:GREEN;font-size:48px;"></span>
+                <div class="service-content">
+                  <h5>选课</h5>
+                </div>
+              </div>
+            </a>
+            <a th:if="${registered}" onclick="
+              var url = window.location.href;
+              var id = url.split('/').pop();
+              $.post('/course/' + id + '/unregister', function() {
+                location.reload(true);
+              });
+              ">
+              <div class="col-md-4 col-sm-6 service text-center"><span class="icon icon-megaphone"
+                                                                       style="color:RED;font-size:48px;"></span>
+                <div class="service-content">
+                  <h5>退选</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </section>
+  <section class="vibrant centered">
+    <div class="">
+      <p><font size="80px">Let's Learn together! :)</font></p>
+    </div>
+  </section>
+  <footer>
+    <div class="">
+      <p> &copy; Copyright TAQ Honors Program. All Rights Reserved. <a href="http://www.cssmoban.com/" target="_blank"
+                                                                       title="模板之家">CCST</a> - 计算机科学 - <a
+          href="http://www.cssmoban.com/" title="JLU" target="_blank">JLU</a></p>
+    </div>
+  </footer>
+</div>
+<script src="/courses/js/jquery.min.js"></script>
+<script type="text/javascript" src="/courses/js/prettify/prettify.js"></script>
+<script src="https://cdn.bootcss.com/prettify/r298/run_prettify.js"></script>
+<script src="/courses/js/layout.js"></script>
+</body>
+</html>
