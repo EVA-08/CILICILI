@@ -1,5 +1,9 @@
 package cilicili.domain;
 
+import org.springframework.content.commons.annotations.ContentId;
+import org.springframework.content.commons.annotations.ContentLength;
+import org.springframework.content.commons.annotations.MimeType;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +18,13 @@ public class Video {
     private String path;
     private Set<Barrage> barrageSet = new HashSet<>();
     private Lesson lesson;
+
+    @ContentId
+    private String contentId;
+    @ContentLength
+    private long contentLength;
+    @MimeType
+    private String mimeType;
 
     @Id
     @GeneratedValue
@@ -59,5 +70,29 @@ public class Video {
 
     public void setLesson(Lesson lesson) {
         this.lesson = lesson;
+    }
+
+    public String getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(String contentId) {
+        this.contentId = contentId;
+    }
+
+    public long getContentLength() {
+        return contentLength;
+    }
+
+    public void setContentLength(long contentLength) {
+        this.contentLength = contentLength;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
     }
 }

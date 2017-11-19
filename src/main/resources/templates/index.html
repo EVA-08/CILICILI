@@ -1,0 +1,325 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>CILICILI干杯[]~(￣▽￣)~*</title>
+
+  <!-- Google fonts -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+        integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:600' rel='stylesheet' type='text/css'>
+
+  <!-- font awesome -->
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css"/>
+
+  <!-- animate.css -->
+  <link rel="stylesheet" href="/assets/animate/animate.css"/>
+  <link rel="stylesheet" href="/assets/animate/set.css"/>
+
+  <!-- gallery -->
+  <link rel="stylesheet" href="/assets/gallery/blueimp-gallery.min.css">
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/images/favicon.jpg" type="image/x-icon">
+  <link rel="icon" href="/images/favicon.jpg" type="image/x-icon">
+
+
+  <link rel="stylesheet" href="/assets/style.css">
+
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" th:if="${user == null}">
+  <div class="container">
+    <div class="navbar-header" style="width:100%;">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" href="http://v3.bootcss.com/examples/jumbotron/#">游客，您好！~</a>
+
+      <div class="navbar-collapse collapse">
+        <form id="loginForm" class="navbar-form navbar-right" th:action="@{/login}" method="post" onsubmit="
+          $.post('/login', $('#loginForm').serialize(), function(data) {
+              if (data === 'success') {
+                   location.reload(true);
+               } else {
+                    var $button = $('#login');
+                    $button.popover('show');
+                    setTimeout(function() {
+                        $button.popover('hide');
+                    }, 2000);
+
+               }
+
+          });
+          return false;">
+          <div class="form-group">
+            <input type="text" placeholder="请输入用户名" class="form-control" name="username">
+          </div>
+
+          <div class="form-group">
+            <input type="password" placeholder="请输入密码" class="form-control" name="password">
+          </div>
+          <button id="login" type="submit" class="btn btn-login btn-success" data-toggle="popover"
+                  data-content="<p style='color: black'>用户名或密码错误</p>" data-trigger="manual" data-placement="bottom"
+                  data-html="true">登录
+          </button>
+          <button id="register" type="button" class=" btn float-r btn btn-register btn-regsucc"
+                  onclick="document.location='/login_register'">注册
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" th:if="${user != null}">
+  <div class="container">
+    <div class="navbar-header" style="width:100%;">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Lovelive!</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" href="http://v3.bootcss.com/examples/jumbotron/#" th:text="${user.username} + '，您好 ~'">我永远喜欢任天堂！</a>
+
+
+      <div class="navbar-collapse collapse">
+        <div class="d-flex justify-content-end" style="height: 50px;">
+          <button type="button" class="btn btn-normal" style="width:120px;">历史纪录</button>
+          <button type="button" class="btn btn-normal" style="width:120px;">个人中心</button>
+          <button type="button" class="btn btn-normal" style="width:120px;">消息</button>
+          <button type="button" class="btn btn-normal" style="width:120px;" onclick="document.location='/logout'">登出
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<div id="home">
+  <!-- Slider Starts -->
+  <div class="banner">
+    <img src="/images/index_back.jpg" alt="banner" class="img-responsive">
+    <div class="caption">
+      <div class="caption-wrapper">
+        <div class="caption-info">
+          <img src="/images/profile.jpg" class="img-circle profile">
+          <h1 class="animated bounceInUp"><font face="">CILICILI 学堂</font></h1>
+          <p class="animated bounceInLeft"> Je pense que je suis. -Discours de la méthode </p>
+          <div class="animated bounceInDown"><a href="#works" class="btn-viewall btn-default explore">view My Works</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- #Slider Ends -->
+</div>
+
+
+<p style="margin-top: 20px;margin-bottom: 20px;"></p>
+
+
+<div class="col-md-12" style="margin-bottom: 20px" th:if="${user != null}"><font size=10px face="微软雅黑">已选择课程</font>
+</div>
+
+
+<div class=" clearfix grid" th:if="${user != null} ">
+  <figure class="effect-oscar  wowload fadeInUp" th:each="registeredCourse, registeredCourseStat: ${registeredCourses}"
+          th:if="${registeredCourseStat.index < 4}">
+    <img th:src="@{'/image/' + ${registeredCourse.image.id}}"/>
+    <figcaption>
+      <h2><font face="微软雅黑" th:text="${registeredCourse.name}">数学分析</font></h2>
+      <p><font size=3px face="微软雅黑" th:text="${registeredCourse.author.username}">&nbsp;主讲人&nbsp;:&nbsp;<u>马良坑</u>&nbsp;</font><br>
+        <a th:href="@{'/course/' + ${registeredCourse.id}}">详情</a>
+        <a>观看课程</a></p>
+    </figcaption>
+  </figure>
+  <div id="demo1" class="collapse" th:each="registeredCourse, registeredCourseStat: ${registeredCourses}"
+       th:if="${registeredCourseStat.index >= 4}">
+    <figure class="effect-oscar  wowload fadeInUp">
+      <img th:src="@{'/image/' + ${registeredCourse.image.id}}"/>
+      <figcaption>
+        <h2><font face="微软雅黑" th:text="${registeredCourse.name}">数学分析</font></h2>
+        <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<u
+            th:text="${course.author.username}">马良坑</u>&nbsp;</font><br>
+          <a th:href="@{'/course/' + ${course.id}">详情</a>
+          <a>观看课程</a></p>
+      </figcaption>
+    </figure>
+  </div>
+
+</div>
+
+
+<div class="d-flex justify-content-end" style="width:100%" th:if="${user != null && #sets.size(registeredCourses) > 4}">
+  <button type="button"
+          style="margin-top: 20px; margin-right: 3%; float: right;background-color:rgba(10,10,10,0.9);width:60px;"
+          class="btn btn-normal" data-toggle="collapse" data-target="#demo1"><font size=5px>+/-</font></button>
+</div>
+
+
+<div class="col-md-12" style="margin-bottom: 20px;margin-top: 30px;" th:if="${user != null}"><font size=10px
+                                                                                                   face="微软雅黑">推荐课程</font>
+</div>
+
+<div class="clearfix grid">
+  <figure class="effect-oscar  wowload fadeInUp" th:each="course, courseStat: ${courses}"
+          th:if="${courseStat.index < 4}">
+    <img src="/images/portfolio/1.jpg" th:src="@{'/image/' + ${course.image.id}}"/>
+    <figcaption>
+      <h2><font face="微软雅黑" th:text="${course.name}">数学分析</font></h2>
+      <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<u
+          th:text="${course.author.username}">马良坑</u>&nbsp;</font><br>
+        <a th:href="@{'/course/' + ${course.id}}">详情</a>
+        <a>观看课程</a></p>
+    </figcaption>
+  </figure>
+  <div id="demo2" class="collapse">
+    <figure class="effect-oscar  wowload fadeInUp" th:each="course, courseStat: ${courses}"
+            th:if="${courseStat.index >= 4}">
+      <img src="/images/portfolio/1.jpg" th:src="@{'/image/' + ${course.image.id}}"/>
+      <figcaption>
+        <h2><font face="微软雅黑" th:text="${course.name}">数学分析</font></h2>
+        <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<u
+            th:text="${course.author.username}">马良坑</u>&nbsp;</font><br>
+          <a th:href="@{'/course/' + ${course.id}}">详情</a>
+          <a>观看课程</a></p>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="d-flex justify-content-end" style="width:100%" th:if="${#sets.size(courses) > 4}">
+  <button type="button"
+          style="margin-top: 20px; margin-right: 3%; float: right;background-color:rgba(10,10,10,0.9);width:60px;"
+          class="btn btn-normal" data-toggle="collapse" data-target="#demo2"><font size=5px>+/-</font></button>
+</div>
+
+<div id="testimonials" class="container spacer ">
+  <h2 class="text-center  wowload fadeInUp">布告栏</h2>
+  <div class="clearfix">
+    <div class="col-sm-6 col-sm-offset-3">
+
+
+      <div id="carousel-testimonials" class="carousel slide testimonails  wowload fadeInRight" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="item active animated bounceInRight row">
+            <div class="animated slideInLeft col-xs-2"><img alt="portfolio" src="images/team/1.jpg" width="100"
+                                                            class="img-circle img-responsive"></div>
+            <div class="col-xs-10">
+              <p> I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and
+                I will give you a complete account of the system, and expound the actual teachings of the great explorer
+                of the truth, the master-builder of human happiness. </p>
+              <span>Angel Smith - <b>eshop Canada</b></span>
+            </div>
+          </div>
+          <div class="item  animated bounceInRight row">
+            <div class="animated slideInLeft col-xs-2"><img alt="portfolio" src="/images/team/2.jpg" width="100"
+                                                            class="img-circle img-responsive"></div>
+            <div class="col-xs-10">
+              <p>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do
+                not know how to pursue pleasure rationally encounter consequences that are extremely painful.</p>
+              <span>John Partic - <b>Crazy Pixel</b></span>
+            </div>
+          </div>
+          <div class="item  animated bounceInRight row">
+            <div class="animated slideInLeft  col-xs-2"><img alt="portfolio" src="/images/team/3.jpg" width="100"
+                                                             class="img-circle img-responsive"></div>
+            <div class="col-xs-10">
+              <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and
+                demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the
+                pain and trouble that are bound to ensue.</p>
+              <span>Harris David - <b>Jet London</b></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-testimonials" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-testimonials" data-slide-to="1"></li>
+          <li data-target="#carousel-testimonials" data-slide-to="2"></li>
+        </ol>
+        <!-- Indicators -->
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>
+
+
+<!-- Footer Starts -->
+<div class="footer text-center spacer">
+  <p class="wowload flipInX"><a href="#"><i class="fa fa-facebook fa-2x"></i></a> <a href="#"><i
+      class="fa fa-instagram fa-2x"></i></a> <a href="#"><i class="fa fa-twitter fa-2x"></i></a> <a href="#"><i
+      class="fa fa-flickr fa-2x"></i></a></p>
+  Copyright 2017 TAQ Honors Program. All rights reserved.
+  主页 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">-计算机科学-</a> Collect from <a
+    href="http://www.cssmoban.com/" title="网页模板" target="_blank">JLU</a>
+</div>
+<!-- # Footer Ends -->
+<a href="#home" class="gototop "><i class="fa fa-angle-up  fa-3x"></i></a>
+
+
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+  <!-- The container for the modal slides -->
+  <div class="slides"></div>
+  <!-- Controls for the borderless lightbox -->
+  <h3 class="title">Title</h3>
+  <a class="prev">‹</a>
+  <a class="next">›</a>
+  <a class="close">×</a>
+  <!-- The modal dialog, which will be used to wrap the lightbox content -->
+</div>
+
+
+<!-- jquery -->
+<script src="/assets/jquery.js"></script>
+
+
+<!-- wow script -->
+<script src="/assets/wow/wow.min.js"></script>
+
+
+<!-- boostrap -->
+<script src="/assets/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+
+<!-- jquery mobile -->
+<script src="/assets/mobile/touchSwipe.min.js"></script>
+<script src="/assets/respond/respond.js"></script>
+
+<!-- gallery -->
+<script src="/assets/gallery/jquery.blueimp-gallery.min.js"></script>
+
+
+<!-- custom script -->
+<script src="/js/index.js"></script>
+
+<!--collapse> -->
+<script src="/assets/bootstrap/js/collapse.js"></script>
+
+</body>
+</html>

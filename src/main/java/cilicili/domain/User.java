@@ -14,6 +14,8 @@ public class User {
     private String password;
     private Identity identity;
     private String email;
+    private String phone;
+    private String address;
     private Set<Course> registeredCourseSet = new HashSet<>();
     private Set<Notice> noticeSet = new HashSet<>();
     private Set<History> historySet = new HashSet<>();
@@ -148,6 +150,23 @@ public class User {
 
     public void setAphorism(Info aphorism) {
         this.aphorism = aphorism;
+    }
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
