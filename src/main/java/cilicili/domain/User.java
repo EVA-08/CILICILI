@@ -95,6 +95,7 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+
     public Set<History> getHistorySet() {
         return historySet;
     }
@@ -131,6 +132,7 @@ public class User {
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+
     public Set<Info> getAwardSet() {
         return awardSet;
     }

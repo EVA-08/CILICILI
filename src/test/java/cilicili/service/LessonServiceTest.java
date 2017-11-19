@@ -43,7 +43,7 @@ public class LessonServiceTest {
     public void addLessonTest() {
         Course course = new Course();
         course.setName("Software Engineering");
-        course.setIntroduction("It is an useful course!");
+        course.setIntroduction("It is an useful resources!");
         courseRepository.save(course);
         course = courseRepository.findByName(course.getName());
 
@@ -74,4 +74,5 @@ public class LessonServiceTest {
         ExpectedLessonSet.remove(lesson1);
         Assert.assertEquals(ExpectedLessonSet, result);
     }
+
 }

@@ -13,7 +13,7 @@ public class Course {
     private String introduction;
     private String name;
     private User author;
-    private String imagePath;
+    private Resource image;
     private Set<Lesson> lessonSet = new HashSet<>();
     private Set<User> registeredUserSet = new HashSet<>();
     private Set<Announcement> announcementSet = new HashSet<>();
@@ -82,12 +82,22 @@ public class Course {
         this.announcementSet = announcementSet;
     }
 
-    @Column
-    public String getImagePath() {
-        return imagePath;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public Resource getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(Resource image) {
+        this.image = image;
+    }
+
+    /**
+     * 增加一节课
+     *
+     * @param lesson 一节课
+     */
+    public void addLesson(Lesson lesson) {
+        getLessonSet().add(lesson);
+        lesson.setCourse(this);
     }
 }

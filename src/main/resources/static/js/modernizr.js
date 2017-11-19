@@ -13,7 +13,7 @@
  * <html> element. This information allows you to progressively enhance
  * your pages with a granular level of control over the experience.
  *
- * Modernizr has an optional (not included) conditional resource loader
+ * Modernizr has an optional (not included) conditional resources loader
  * called Modernizr.load(), based on Yepnope.js (yepnopejs.com).
  * To get a build that includes Modernizr.load(), as well as choosing
  * which tests to include, go to www.modernizr.com/download/
@@ -719,7 +719,7 @@ window.Modernizr = (function (window, document, undefined) {
     // e.g.  Modernizr.video     // true
     //       Modernizr.video.ogg // 'probably'
     //
-    // Codec values from : github.com/NielsLeenheer/html5test/blob/9106a8/index.html#L845
+    // Codec values from : github.com/NielsLeenheer/html5test/blob/9106a8/course.html#L845
     //                     thx to NielsLeenheer and zcorpan
 
     // Note: in some older browsers, "no" was a return value instead of empty string.
@@ -854,7 +854,7 @@ window.Modernizr = (function (window, document, undefined) {
         /*>>input*/
         // Run through HTML5's new input attributes to see if the UA understands any.
         // We're using f which is the <input> element created early on
-        // Mike Taylr has created a comprehensive resource for testing these attributes
+        // Mike Taylr has created a comprehensive resources for testing these attributes
         //   when applied to all input types:
         //   miketaylr.com/code/input-type-attr.html
         // spec: www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html#input-type-attr-summary

@@ -1,6 +1,7 @@
 package cilicili.domain;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class Lesson {
     private Set<Question> QuestionSet = new HashSet<>();
     private Course course;
     private Integer sequence;
+    private Date startDate;
 
     @Id
     @GeneratedValue
@@ -101,6 +103,15 @@ public class Lesson {
 
     public void setSequence(Integer sequence) {
         this.sequence = sequence;
+    }
+
+    @Column
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     /**
