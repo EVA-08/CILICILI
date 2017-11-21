@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <!-- Head -->
 <head>
@@ -69,7 +69,7 @@
     </div>
     <div class="clear"></div>
   </div>
-  <div class="copyrights">Collect from <a href="http://www.cssmoban.com/">企业网站模板</a></div>
+  <div class="copyrights">Collect from <a>企业网站模板</a></div>
   <div class="register w3layouts agileits">
     <h2>注 册</h2>
     <form action="#" method="post" id="registerForm">
@@ -100,14 +100,15 @@
         class="fa fa-instagram fa-2x"></i></a> <a href="#"><i class="fa fa-twitter fa-2x"></i></a> <a href="#"><i
         class="fa fa-flickr fa-2x"></i></a></p>
     Copyright 2017 TAQ Honors Program. All rights reserved.
-    More Info. <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">JLU</a> - Collect from <a
-      href="http://www.cssmoban.com/" title="网页模板" target="_blank">China</a>
+    More Info. <a>JLU</a> - Collect from <a>China</a>
   </div>
   <!-- # Footer Ends -->
 </div>
 <script src="/assets/jquery.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 <script src="/js/login_register.js"></script>
+
+<script th:if="${param.login != null}">alert('请先登录 ！');</script>
 </body>
 <!-- //Body -->
 

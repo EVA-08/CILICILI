@@ -7,7 +7,7 @@ body, html {
     padding: 0;
 }
 
-body,
+body, 
 input,
 h1,
 h2,
@@ -15,7 +15,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "微软雅黑", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-family: "微软雅黑", Helvetica, Arial, "Lucida Grande", sans-serif; 
     font-weight: 300;
     font-size: 18px;
 }
@@ -81,7 +81,6 @@ iframe {
     box-shadow: 0 0 2px 2px rgba(155, 155, 155, 0.1);
     border: 1px solid #d3d3d3;
 }
-
 header {
     width: 100%;
     overflow: hidden;
@@ -108,6 +107,7 @@ h6 {
     color: inherit;
     text-rendering: optimizelegibility;
 }
+
 
 h1,
 h2,
@@ -188,9 +188,10 @@ a:active {
 header {
     padding: 2em 0 2em 0;
 
-    background: #26abe2;
+    background: #26abe2; 
     color: #fff;
 }
+
 
 h1 {
     margin: 0;
@@ -274,6 +275,8 @@ nav a:active {
     cursor: default;
 }
 
+
+
 nav ul.site {
     padding: 20px 0 0 0;
 }
@@ -284,6 +287,7 @@ nav #menu {
     clear: left;
 }
 
+
 nav #menu-toggle {
     position: absolute;
     right: 0;
@@ -291,6 +295,7 @@ nav #menu-toggle {
     font-size: 1.5em;
     padding: 0 16px;
 }
+
 
 @media only screen and (min-width: 680px) {
     nav, nav #menu {
@@ -300,6 +305,7 @@ nav #menu-toggle {
     nav li, nav a {
         float: left;
     }
+
 
     nav ul.site {
         float: left;
@@ -343,7 +349,7 @@ nav:before,
 nav:after,
 header:before,
 header:after,
-section:before,
+section:before, 
 section:after {
     content: " ";
     display: table;
@@ -356,6 +362,8 @@ nav:after, header:after, section:after {
 nav, header, section {
     *zoom: 1;
 }
+
+
 
 /* Form Styles */
 input {
@@ -428,7 +436,7 @@ input:focus {
         color: #fff;
     }
 
-    .docs-nav a:active,
+    .docs-nav a:active, 
     .docs-nav .active {
         background: #26ABE2;
         color: #fff;
@@ -444,7 +452,7 @@ input:focus {
     }
 
     header {
-        padding: 1em 0 1em 0;
+        padding: 1em 0 1em 0; 
     }
 
     .container {
@@ -457,7 +465,6 @@ input:focus {
         text-align: left;
         background: #fff;
     }
-
     section.centered {
         text-align: center;
     }

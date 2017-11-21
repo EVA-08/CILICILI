@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 
 @Service
 public class ResourceService {
-    private Path location = Paths.get("resources");
+    private Path location = Paths.get("target/classes/static/resources");
     private ResourceRepository resourceRepository;
 
     public ResourceService() {
