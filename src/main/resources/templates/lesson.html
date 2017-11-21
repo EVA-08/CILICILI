@@ -24,12 +24,12 @@
 <!-- header top section -->
 <section class="banner" role="banner">
   <header id="header">
-    <div class="header-content clearfix"><a class="logo" href="index.html"><img src="/images/logo.png" alt=""></a>
+    <div class="header-content clearfix"><a class="logo" href="/"><img src="/images/logo.png" alt=""></a>
       <nav class="navigation" role="navigation">
         <ul class="primary-nav">
           <li th:text="'Hi! ' + ${currentUser.username} + '.'">Hi! 潘彦岑.</li>
           <li> |</li>
-          <li><a href="mainlto:hello@phdl.co">返回首页</a></li>
+          <li><a th:href="@{'/course/' + ${currentLesson.course.id}}">返回信息页</a></li>
         </ul>
       </nav>
       <a href="#" class="nav-toggle">Menu<span></span></a></div>
@@ -48,11 +48,6 @@
         </div>
         <!-- hero -->
       </div>
-      <div class="col-md-5 col-sm-6 hero text-center">
-        <div class="hero-content"><a href="https://www.designstub.com" class="btn">Visit Site <i
-            class="fa fa-long-arrow-right"></i> </a></div>
-        <!-- hero -->
-      </div>
     </div>
   </div>
 </section>
@@ -61,7 +56,7 @@
 <section id="work-detail">
   <div class="container">
     <hr>
-    <video th:src="@{'/video/' + ${currentLesson.video.id}}" width="1080" height="720" controls="controls">
+    <video th:src="@{'/resources/' + ${currentLesson.video.path}}" width="1080" height="720" controls="controls">
       Your browser does not support the video tag.
     </video>
   </div>
@@ -88,15 +83,14 @@
     </div>
     <div class="col-md-6 right">
       <p>© 2017 TAQ Honors Program. All Rights Reserved<br>
-        CSST. <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">吉林大学</a> - 计算机科学 <a
-            href="http://www.cssmoban.com/" title="网页模板" target="_blank">JLU</a></p>
+        CSST. <a>吉林大学</a> - 计算机科学 <a>JLU</a></p>
     </div>
   </div>
 </footer>
 <!-- footer section -->
 
 <!-- JS FILES -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
 <script src="/js/jquery.fancybox.pack.js"></script>

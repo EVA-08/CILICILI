@@ -7,10 +7,7 @@ import cilicili.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Set;
@@ -153,17 +150,44 @@ public class UserController {
 
     /**
      * 更改个人信息
-     * @param user 更改的用户信息
+     * @param owner 更改的用户信息
+     * @param httpSession HttpSession对象
      * @return 更改结果，成功为"success"，失败为"fail"
      */
-    @PostMapping(path = "/change_personal_info")
+    @PutMapping(path = "/change_personal_info")
     @ResponseBody
-    public String changePersonalInfo(User user) {
-        return "";
+    public String changePersonalInfo(User owner, HttpSession httpSession) {
+        User currentUser = (User) httpSession.getAttribute("currentUser");
+        userService.changePersonalInfo(currentUser.getId(), owner);
+        return "success";
     }
 
     @GetMapping(path = "/login_register")
     public String loginRegister() {
         return "login_register";
     }
+
+    /**
+     * @param ownerId     拥有者ID
+     * @param model       模型数据
+     * @param httpSession HttpSession对象
+     * @return
+     */
+    @GetMapping(path = "/personal/{ownerId}")
+    public String personal(@PathVariable Integer ownerId, Model model, HttpSession httpSession) {
+        User currentUser = (User) httpSession.getAttribute("currentUser");
+        model.addAttribute("currentUser", currentUser);
+        User owner = userService.getById(ownerId);
+        model.addAttribute("owner", owner);
+        return "personal";
+    }
+
+    @GetMapping(path = "/personal")
+    public String personal(Model model, HttpSession httpSession) {
+        User currentUser = (User) httpSession.getAttribute("currentUser");
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("owner", currentUser);
+        return "personal";
+    }
+
 }
