@@ -50,8 +50,9 @@ public class UserService {
     public void changePersonalInfo(Integer oldUserId, User newUser) {
         User user = userRepository.findOne(oldUserId);
         user.setEmail(newUser.getEmail());
+        user.setPhone(newUser.getPhone());
+        user.setAddress(newUser.getAddress());
         userRepository.save(user);
-
     }
     /**
      * 用户登录

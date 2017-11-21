@@ -1,42 +1,36 @@
 /* ------------------------------------------------------------------------------
 	Typography
 -------------------------------------------------------------------------------*/
-@import url(http://fonts.googleapis.com/css?family=Cutive%20Mono:400);
 
+@import url(http://fonts.googleapis.com/css?family=Cutive%20Mono:400);
 p {
     font-size: 14px;
     line-height: 22.4px;
     color: #6c7279;
 }
-
 h1 {
     font-size: 65px;
     color: #2d3033;
 }
-
 h2 {
     font-size: 40px;
     color: #2d3033;
 }
-
 h3 {
     font-size: 28px;
     color: #2d3033;
     font-weight: 300;
 }
-
 h4 {
     font-size: 22px;
     color: #2d3033;
     font-weight: 400;
 }
-
 h5 {
     font-size: 14px;
     color: #2d3033;
     font-weight: 700;
 }
-
 .btn {
     background-color: #333;
     margin: 40px;
@@ -49,23 +43,19 @@ h5 {
     display: inline-block;
     text-transform: uppercase;
 }
-
 .btn:hover, .btn:focus {
     background-color: #000;
     color: #fff;
 }
-
 .btn-large {
     padding: 15px 40px;
 }
-
 /* ------------------------------------------------------------------------------
 	Global Styles
 -------------------------------------------------------------------------------*/
 a {
     color: #e84545;
 }
-
 a:hover, a:focus {
     text-decoration: none;
     -moz-transition: background-color, color, 0.3s;
@@ -73,30 +63,24 @@ a:hover, a:focus {
     -webkit-transition: background-color, color, 0.3s;
     transition: background-color, color, 0.3s;
 }
-
 body {
     font-family: "Cutive Mono";
     font-weight: 400;
     color: #fff;
 }
-
 ul, ol {
     margin: 0;
     padding: 0;
 }
-
 ul li {
     list-style: none;
 }
-
 .section {
     padding: 50px 0;
 }
-
 .section-header {
     margin-bottom: 50px;
 }
-
 .section-header .section-title {
     font-size: 44px;
     color: #272727;
@@ -105,7 +89,6 @@ ul li {
     padding-bottom: 20px;
     margin: 0 0 20px;
 }
-
 .section-header .section-title:before {
     content: "";
     position: absolute;
@@ -116,7 +99,6 @@ ul li {
     height: 1px;
     background: #ebebeb;
 }
-
 .section-header .section-title:after {
     content: "";
     position: absolute;
@@ -129,20 +111,16 @@ ul li {
     border-radius: 20px;
     background: #45aed6;
 }
-
 .no-padding {
     padding: 0;
 }
-
 .no-gutter [class*=col-] {
     padding-right: 0;
     padding-left: 0;
 }
-
 .extra-padding {
     margin: 60px 0 0 100px;
 }
-
 /* ------------------------------------------------------------------------------
 	 Header
 -------------------------------------------------------------------------------*/
@@ -151,7 +129,6 @@ ul li {
     width: 100%;
     z-index: 999;
 }
-
 #header .header-content {
     margin: 0 auto;
     padding: 60px 10%;
@@ -161,24 +138,19 @@ ul li {
     -webkit-transition: padding 0.3s;
     transition: padding 0.3s;
 }
-
 #header .logo {
     float: left;
 }
-
 #header.fixed {
     background-color: rgba(255, 255, 255, 1);
 }
-
 #header.fixed .header-content {
     border-bottom: 0;
     padding: 25px 10%;
 }
-
 #header.fixed .nav-toggle {
     top: 18px;
 }
-
 .navigation.open {
     opacity: 0.9;
     visibility: visible;
@@ -187,22 +159,18 @@ ul li {
     -webkit-transition: opacity 0.5s;
     transition: opacity 0.5s;
 }
-
 .navigation {
     float: right;
 }
-
 .navigation li {
     display: inline-block;
 }
-
 .navigation, .navigation a {
     color: rgba(0, 0, 0, 1);
     font-size: 16px;
     margin-left: 40px;
     letter-spacing: -1px;
 }
-
 .navigation a:hover, .navigation a.active {
     color: #000;
 }
@@ -214,7 +182,6 @@ ul li {
     font-size: 0;
     overflow: hidden;
 }
-
 .nav-toggle {
     display: none;
     height: 44px;
@@ -231,7 +198,6 @@ ul li {
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
 }
-
 .nav-toggle:before, .nav-toggle:after {
     border-radius: 50%;
     content: "";
@@ -252,7 +218,6 @@ ul li {
     -webkit-transition-property: -webkit-transform;
     transition-property: transform;
 }
-
 .nav-toggle:before {
     background-color: #333;
     -moz-transform: scale(1);
@@ -264,7 +229,6 @@ ul li {
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
 }
-
 .nav-toggle:after {
     background-color: #000;
     -moz-transform: scale(0);
@@ -276,7 +240,6 @@ ul li {
     -webkit-transition-duration: 0s;
     transition-duration: 0s;
 }
-
 .nav-toggle span {
     background-color: #fff;
     bottom: auto;
@@ -293,7 +256,6 @@ ul li {
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
 }
-
 .nav-toggle span:before, .nav-toggle span:after {
     background-color: #fff;
     content: "";
@@ -314,80 +276,66 @@ ul li {
     -webkit-transition: -webkit-transform 0.3s;
     transition: transform 0.3s;
 }
-
 .nav-toggle span:before {
     -moz-transform: translateY(-6px) rotate(0deg);
     -ms-transform: translateY(-6px) rotate(0deg);
     -webkit-transform: translateY(-6px) rotate(0deg);
     transform: translateY(-6px) rotate(0deg);
 }
-
 .nav-toggle span:after {
     -moz-transform: translateY(6px) rotate(0deg);
     -ms-transform: translateY(6px) rotate(0deg);
     -webkit-transform: translateY(6px) rotate(0deg);
     transform: translateY(6px) rotate(0deg);
 }
-
 .nav-toggle.close-nav:before {
     -moz-transform: scale(0);
     -ms-transform: scale(0);
     -webkit-transform: scale(0);
     transform: scale(0);
 }
-
 .nav-toggle.close-nav:after {
     -moz-transform: scale(1);
     -ms-transform: scale(1);
     -webkit-transform: scale(1);
     transform: scale(1);
 }
-
 .nav-toggle.close-nav span {
     background-color: rgba(255, 255, 255, 0);
 }
-
 .nav-toggle.close-nav span:before, .nav-toggle.close-nav span:after {
     background-color: #fff;
 }
-
 .nav-toggle.close-nav span:before {
     -moz-transform: translateY(0) rotate(45deg);
     -ms-transform: translateY(0) rotate(45deg);
     -webkit-transform: translateY(0) rotate(45deg);
     transform: translateY(0) rotate(45deg);
 }
-
 .nav-toggle.close-nav span:after {
     -moz-transform: translateY(0) rotate(-45deg);
     -ms-transform: translateY(0) rotate(-45deg);
     -webkit-transform: translateY(0) rotate(-45deg);
     transform: translateY(0) rotate(-45deg);
 }
-
 /* ------------------------------------------------------------------------------
 	 Hero content
 -------------------------------------------------------------------------------*/
 .hero {
     margin-top: 10%;
 }
-
 .hero-content {
 }
-
 .hero h1 {
     font-size: 70px;
     text-transform: uppercase;
 }
-
 .hero h4 {
     font-weight: 400;
 }
-
 .hero p {
     padding-top: 40px;
 }
-
 /* ------------------------------------------------------------------------------
 	 Portfolio
 -------------------------------------------------------------------------------*/
@@ -396,13 +344,11 @@ ul li {
     margin: 0 0 20px;
     padding: 0 10px;
 }
-
 #portfolio .portfolio-item .portfolio-link {
     display: block;
     position: relative;
     margin: 0 auto;
 }
-
 #portfolio .portfolio-item .portfolio-link .caption {
     position: absolute;
     width: 100%;
@@ -413,11 +359,9 @@ ul li {
     -moz-transition: all ease .5s;
     transition: all ease .5s;
 }
-
 #portfolio .portfolio-item .portfolio-link .caption:hover {
     opacity: 1;
 }
-
 #portfolio .portfolio-item .portfolio-link .caption .caption-content {
     position: absolute;
     top: 50%;
@@ -428,11 +372,9 @@ ul li {
     font-size: 20px;
     color: #fff;
 }
-
 #portfolio .portfolio-item .portfolio-link .caption .caption-content i {
     margin-top: -12px;
 }
-
 #portfolio .portfolio-item .portfolio-link .caption .caption-content h3 {
     margin: 0;
     color: #e9eaed;
@@ -440,7 +382,6 @@ ul li {
     letter-spacing: 4px;
     text-transform: uppercase;
 }
-
 #portfolio .portfolio-item .portfolio-link .caption .caption-content h4 {
     margin: 10px 0;
     color: #e9eaed;
@@ -448,40 +389,33 @@ ul li {
     letter-spacing: 2px;
     text-transform: uppercase;
 }
-
 #portfolio * {
     z-index: 2;
 }
-
 /* ------------------------------------------------------------------------------
 	 Service
 -------------------------------------------------------------------------------*/
 .service {
     margin-bottom: 50px;
 }
-
 .service h4 {
     font-size: 19px;
     color: #000;
     font-weight: 400;
     text-transform: uppercase;
 }
-
 .service-content {
     margin-top: 30px;
 }
-
 .service .icon {
     color: #a1a4a8;
     font-size: 48px;
 }
-
 .service-content h5 {
     text-transform: uppercase;
     font-weight: 400;
     color: #000;
 }
-
 /* ------------------------------------------------------------------------------
 	 Footer
 -------------------------------------------------------------------------------*/
@@ -490,31 +424,25 @@ ul li {
     background-color: #333;
     padding: 7%;
 }
-
 .footer h4 {
     color: #fff;
     margin: 0 0 15px 0;
     padding: 0px;
 }
-
 .footer p {
     color: #c8c8c8;
 }
-
 .footer a {
     color: #fff;
 }
-
 .footer a:hover {
     text-decoration: underline;
 }
-
 .footer .fa-heart {
     color: #e84545;
     font-size: 11px;
     margin: 0 2px;
 }
-
 /* ------------------------------------------------------------------------------
 	 Work Details
 -------------------------------------------------------------------------------*/

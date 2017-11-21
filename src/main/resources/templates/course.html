@@ -10,8 +10,7 @@
   <link rel="stylesheet" href="/courses/css/bootstrap.min.css">
   <link rel="stylesheet" href="/courses/css/font-icon.css">
   <link rel="alternate" type="application/rss+xml" title="" href="feed/index.html">
-  <link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
-        type="text/css">
+
   <link rel="stylesheet" href="/courses/css/style.css">
   <link rel="stylesheet" href="/courses/css/prettify.css">
 </head>
@@ -24,10 +23,6 @@
         <span>课程信息</span></a></h1>
     </div>
 
-    <div class="pull-right">
-      <a href="#/free-documentation-html-template-docweb" target="_blank" class="btn btn-download"><img
-          src="/courses/img/download.png" width="25" alt="Download Free Documentation Template"> Download Now</a>
-    </div>
 
   </nav>
   <header>
@@ -73,7 +68,7 @@
         </ul>
         <h4>&nbsp;&nbsp;治学格言 </h4>
         <p style="background-color: rgba(180, 210, 223, 0.49);"
-           th:text="'      ' + ${currentCourse.author.aphorism?.description}">
+           th:text="'      ' + ${currentCourse.author.aphorism != null}? ${currentCourse.author.aphorism}: ''">
           我需要三件东西：爱情友谊和图书。然而这三者之间何其相通！炽热的爱情可以充实图书的内容，图书又是人们最忠实的朋友。
         </p>
         <hr>
@@ -158,9 +153,7 @@
   </section>
   <footer>
     <div class="">
-      <p> &copy; Copyright TAQ Honors Program. All Rights Reserved. <a href="http://www.cssmoban.com/" target="_blank"
-                                                                       title="模板之家">CCST</a> - 计算机科学 - <a
-          href="http://www.cssmoban.com/" title="JLU" target="_blank">JLU</a></p>
+      <p> &copy; Copyright TAQ Honors Program. All Rights Reserved. <a>CCST</a> - 计算机科学 - <a>JLU</a></p>
     </div>
   </footer>
 </div>

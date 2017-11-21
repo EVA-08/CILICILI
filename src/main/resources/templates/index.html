@@ -9,12 +9,9 @@
   <!-- Google fonts -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
         integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:600' rel='stylesheet' type='text/css'>
 
-  <!-- font awesome -->
+
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
   <!-- bootstrap -->
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css"/>
 
@@ -48,7 +45,7 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href="http://v3.bootcss.com/examples/jumbotron/#">游客，您好！~</a>
+      <a class="navbar-brand" href="#">游客，您好！~</a>
 
       <div class="navbar-collapse collapse">
         <form id="loginForm" class="navbar-form navbar-right" th:action="@{/login}" method="post" onsubmit="
@@ -98,13 +95,13 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href="http://v3.bootcss.com/examples/jumbotron/#" th:text="${user.username} + '，您好 ~'">我永远喜欢任天堂！</a>
+      <a class="navbar-brand" th:text="${user.username} + '，您好 ~'">我永远喜欢任天堂！</a>
 
 
       <div class="navbar-collapse collapse">
         <div class="d-flex justify-content-end" style="height: 50px;">
           <button type="button" class="btn btn-normal" style="width:120px;">历史纪录</button>
-          <button type="button" class="btn btn-normal" style="width:120px;">个人中心</button>
+          <button class="btn btn-normal" style="width:120px;" onclick="document.location='/personal';">个人中心</button>
           <button type="button" class="btn btn-normal" style="width:120px;">消息</button>
           <button type="button" class="btn btn-normal" style="width:120px;" onclick="document.location='/logout'">登出
           </button>
@@ -125,8 +122,6 @@
           <img src="/images/profile.jpg" class="img-circle profile">
           <h1 class="animated bounceInUp"><font face="">CILICILI 学堂</font></h1>
           <p class="animated bounceInLeft"> Je pense que je suis. -Discours de la méthode </p>
-          <div class="animated bounceInDown"><a href="#works" class="btn-viewall btn-default explore">view My Works</a>
-          </div>
         </div>
       </div>
     </div>
@@ -148,7 +143,8 @@
     <img th:src="@{'/image/' + ${registeredCourse.image.id}}"/>
     <figcaption>
       <h2><font face="微软雅黑" th:text="${registeredCourse.name}">数学分析</font></h2>
-      <p><font size=3px face="微软雅黑" th:text="${registeredCourse.author.username}">&nbsp;主讲人&nbsp;:&nbsp;<u>马良坑</u>&nbsp;</font><br>
+      <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<a th:href="@{'/personal/'+${registeredCourse.author.id}}"
+                                                             th:text="${registeredCourse.author.username}">马良坑</a>&nbsp;</font><br>
         <a th:href="@{'/course/' + ${registeredCourse.id}}">详情</a>
         <a>观看课程</a></p>
     </figcaption>
@@ -159,8 +155,8 @@
       <img th:src="@{'/image/' + ${registeredCourse.image.id}}"/>
       <figcaption>
         <h2><font face="微软雅黑" th:text="${registeredCourse.name}">数学分析</font></h2>
-        <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<u
-            th:text="${course.author.username}">马良坑</u>&nbsp;</font><br>
+        <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<a
+            th:text="${course.author.username}" th:href="@{'/personal/' + ${registeredCourse.author.id}}">马良坑</a>&nbsp;</font><br>
           <a th:href="@{'/course/' + ${course.id}">详情</a>
           <a>观看课程</a></p>
       </figcaption>
@@ -187,8 +183,8 @@
     <img src="/images/portfolio/1.jpg" th:src="@{'/image/' + ${course.image.id}}"/>
     <figcaption>
       <h2><font face="微软雅黑" th:text="${course.name}">数学分析</font></h2>
-      <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<u
-          th:text="${course.author.username}">马良坑</u>&nbsp;</font><br>
+      <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<a th:href="@{'/personal/' + ${course.author.id}}"
+                                                             th:text="${course.author.username}">马良坑</a>&nbsp;</font><br>
         <a th:href="@{'/course/' + ${course.id}}">详情</a>
         <a>观看课程</a></p>
     </figcaption>
@@ -199,8 +195,8 @@
       <img src="/images/portfolio/1.jpg" th:src="@{'/image/' + ${course.image.id}}"/>
       <figcaption>
         <h2><font face="微软雅黑" th:text="${course.name}">数学分析</font></h2>
-        <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<u
-            th:text="${course.author.username}">马良坑</u>&nbsp;</font><br>
+        <p><font size=3px face="微软雅黑">&nbsp;主讲人&nbsp;:&nbsp;<a
+            th:text="${course.author.username}" th:href="@{'/personal/' + ${course.author.id}}">马良坑</a>&nbsp;</font><br>
           <a th:href="@{'/course/' + ${course.id}}">详情</a>
           <a>观看课程</a></p>
       </figcaption>
@@ -276,8 +272,7 @@
       class="fa fa-instagram fa-2x"></i></a> <a href="#"><i class="fa fa-twitter fa-2x"></i></a> <a href="#"><i
       class="fa fa-flickr fa-2x"></i></a></p>
   Copyright 2017 TAQ Honors Program. All rights reserved.
-  主页 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">-计算机科学-</a> Collect from <a
-    href="http://www.cssmoban.com/" title="网页模板" target="_blank">JLU</a>
+  主页 <a>-计算机科学-</a> Collect from <a>JLU</a>
 </div>
 <!-- # Footer Ends -->
 <a href="#home" class="gototop "><i class="fa fa-angle-up  fa-3x"></i></a>
@@ -320,6 +315,7 @@
 
 <!--collapse> -->
 <script src="/assets/bootstrap/js/collapse.js"></script>
+
 
 </body>
 </html>
