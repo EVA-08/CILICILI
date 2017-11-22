@@ -5,10 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Service
 public class ResourceService {
@@ -43,5 +47,22 @@ public class ResourceService {
 
     public String getResourcePath(Integer resourceId) {
         return resourceRepository.findOne(resourceId).getPath();
+    }
+
+    public void store(MultipartFile file, String targetPath) {
+        try {
+            Files.copy(file.getInputStream(), this.location.resolve(targetPath),
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to store file " + this.location.resolve(targetPath), e);
+        }
+    }
+
+    public void delete(String path) {
+        try {
+            Files.delete(location.resolve(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

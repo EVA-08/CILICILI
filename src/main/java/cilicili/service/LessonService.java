@@ -7,6 +7,7 @@ import cilicili.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import java.util.Set;
 public class LessonService {
     private CourseRepository courseRepository;
     private LessonRepository lessonRepository;
+    private ResourceService resourceService;
 
     @Autowired
     private void setCourseRepository(CourseRepository courseRepository) {
@@ -27,6 +29,11 @@ public class LessonService {
     @Autowired
     private void setLessonRepository(LessonRepository lessonRepository) {
         this.lessonRepository = lessonRepository;
+    }
+
+    @Autowired
+    private void setResourceService(ResourceService resourceService) {
+        this.resourceService = resourceService;
     }
 
     /**
@@ -42,16 +49,27 @@ public class LessonService {
     }
 
     /**
-     * 给课程增加一节课
+     * 获得一节课
      *
+     * @param lessonId 一节课ID
+     * @return 返回一节课
+     */
+    public Lesson getLesson(Integer lessonId) {
+        return lessonRepository.findOne(lessonId);
+    }
+
+    /**
+     * 给课程增加一节课
      * @param courseId 课程ID
      * @param lesson  一节课的信息
+     * @param video 视频
      */
-    public void addLesson(Integer courseId, Lesson lesson) {
+    public void addLesson(Integer courseId, Lesson lesson, MultipartFile video) {
         Course course = courseRepository.findOne(courseId);
         course.getLessonSet().add(lesson);
         lesson.setCourse(course);
         courseRepository.save(course);
+
     }
 
     /**
@@ -68,7 +86,15 @@ public class LessonService {
         courseRepository.save(course);
     }
 
+    /**
+     * 通过课程ID和序号查找一节课
+     * @param courseId 课程ID
+     * @param sequence 序号
+     * @return 一节课
+     */
     public Lesson findByCourseIdAndSequence(Integer courseId, Integer sequence) {
         return lessonRepository.findByCourseIdAndSequence(courseId, sequence);
     }
+
+
 }

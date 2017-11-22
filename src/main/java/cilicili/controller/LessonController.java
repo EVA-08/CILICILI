@@ -41,4 +41,14 @@ public class LessonController {
         return "lesson";
     }
 
+    /**
+     * 获得一节课信息
+     *
+     * @param lessonId 一节课Id
+     * @return 返回一节课信息
+     */
+    @GetMapping(path = "/lesson/{lessonId}")
+    public Lesson getLesson(@PathVariable Integer lessonId) {
+        return null;
+    }
 }
