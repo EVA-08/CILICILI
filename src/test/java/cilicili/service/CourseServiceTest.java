@@ -66,8 +66,9 @@ public class CourseServiceTest {
         Assert.assertEquals(RegisteredCourse1, RegisteredCourse);
     }
 
+    /*
     @Test
-    public void creatCourse() {
+    public void createCourse() {
         Course course1 = new Course();
         course1.setName("software engineering");
         course1.setIntroduction("It is an useful resources!");
@@ -75,7 +76,7 @@ public class CourseServiceTest {
         Course result = courseRepository.findByName(course1.getName());
         Assert.assertEquals(result, course1);
     }
-
+*/
 
     @Test
     public void unRegisterCourseTest() {

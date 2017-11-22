@@ -159,6 +159,8 @@ public class UserController {
     public String changePersonalInfo(User owner, HttpSession httpSession) {
         User currentUser = (User) httpSession.getAttribute("currentUser");
         userService.changePersonalInfo(currentUser.getId(), owner);
+
+        httpSession.setAttribute("currentUser", userService.getById(currentUser.getId()));
         return "success";
     }
 
