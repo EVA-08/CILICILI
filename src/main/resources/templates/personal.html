@@ -125,8 +125,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           <div class="w3-button-info m_nav_item" th:if="${currentUser.username == owner.username}">
             <a class=" hvr-sweep-to-bottom
           " style="display: inline;" data-toggle="modal" data-target="#myModal">修改个人信息</a>
-            <a class="hvr-sweep-to-bottom" href="#" style="display: inline;"
-               th:if="${currentUser.identity.name() == 'TEACHER'}">课程管理</a>
+            <a class="hvr-sweep-to-bottom" style="display: inline;"
+               th:if="${currentUser.identity.name() == 'TEACHER'}" onclick="location = '/course_manager'">课程管理</a>
           </div>
         </div>
       </div>

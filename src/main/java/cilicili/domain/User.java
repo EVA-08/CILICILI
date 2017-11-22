@@ -198,4 +198,19 @@ public class User {
         registeredCourseSet.remove(course);
         course.getRegisteredUserSet().remove(this);
     }
+
+    /**
+     * 增加一个创建的课程
+     *
+     * @param course 课程信息
+     */
+    public void createCourse(Course course) {
+        createdCourseSet.add(course);
+        course.setAuthor(this);
+    }
+
+    public void removeCourse(Course course) {
+        createdCourseSet.remove(course);
+        course.setAuthor(null);
+    }
 }
