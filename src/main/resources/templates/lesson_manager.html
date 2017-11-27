@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Admin - teacher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- CSS Libs -->
+  <link rel="stylesheet" type="text/css" href="/admin/lib/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/admin/lib/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/admin/lib/css/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="/admin/lib/css/bootstrap-switch.min.css">
+  <link rel="stylesheet" type="text/css" href="/admin/lib/css/checkbox3.min.css">
+  <link rel="stylesheet" type="text/css" href="/admin/lib/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="/admin/lib/css/dataTables.bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/admin/lib/css/select2.min.css">
+  <!-- CSS App -->
+  <link rel="stylesheet" type="text/css" href="/admin/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/admin/css/themes/flat-blue.css">
+</head>
+
+
+<!-- Modal -->
+<div class="modal fade" id="CreateLesson" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">创建课时</h4>
+      </div>
+      <div class="modal-body">
+
+        <form class="form-horizontal" method="post" th:action="'/course/' + ${course.id} + '/lesson'"
+              enctype="multipart/form-data">
+          <div class="form-group" hidden>
+            <label for="CourseId" class="col-sm-2 control-label">课程id</label>
+            <div class="col-sm-10">
+              <input type="text" name="cid" class="form-control" id="CourseId" placeholder="例如：傅里叶级数">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="LessonName" class="col-sm-2 control-label">课时名称</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" class="form-control" id="LessonName" placeholder="例如：傅里叶级数">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="LessonTime" class="col-sm-2 control-label">开课时间</label>
+            <div class="col-sm-10">
+              <input type="date" name="startDate" class="form-control" id="LessonTime" placeholder="例如：2017.5.2">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+              <label for="ImagePath">请上传资源视频.</label>
+              <input type="file" id="ImagePath" name="video">
+              <p class="help-block">注意尺寸.</p>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ChangeLesson" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel2">修改课时</h4>
+      </div>
+      <div class="modal-body">
+
+        <form class="form-horizontal" method="post" action="/changeLesson" enctype="multipart/form-data">
+          <div class="form-group" hidden>
+            <label for="CourseId2" class="col-sm-2 control-label">课程id</label>
+            <div class="col-sm-10">
+              <input type="text" name="id" class="form-control" id="CourseId2" placeholder="例如：傅里叶级数">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="LessonName2" class="col-sm-2 control-label">课时名称</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" class="form-control" id="LessonName2" placeholder="例如：傅里叶级数">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="LessonTime2" class="col-sm-2 control-label">开课时间</label>
+            <div class="col-sm-10">
+              <input type="date" name="startDate" class="form-control" id="LessonTime2" placeholder="例如：2017.5.2">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+              <label for="ImagePath">请上传资源视频.</label>
+              <input type="file" id="ImagePath" name="video">
+              <p class="help-block">注意尺寸.</p>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<body class="flat-blue">
+<div class="app-container">
+
+  <div class="row content-container">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-expand-toggle">
+            <i class="fa fa-bars icon"></i>
+          </button>
+          <ol class="breadcrumb navbar-breadcrumb">
+            <li class="active">课时管理</li>
+          </ol>
+          <button type="button" class="navbar-right-expand-toggle pull-right visible-xs">
+            <i class="fa fa-th icon"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="side-menu sidebar-inverse">
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="side-menu-container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+              <div class="icon fa fa-paper-plane"></div>
+              <div class="title">后台管理系统V1.2</div>
+            </a>
+            <button type="button" class="navbar-expand-toggle pull-right visible-xs">
+              <i class="fa fa-times icon"></i>Q@W?
+            </button>
+          </div>
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="course_manager.html">
+                <span class="icon fa fa-table"></span><span class="title">课程管理</span>
+              </a>
+            </li>
+
+            <li class="active">
+              <a href="lesson_manager.html">
+                <span class="icon fa fa-file-text"></span><span class="title">课时管理</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="license.html">
+                <span class="icon fa fa-thumbs-o-up"></span><span class="title">License</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </nav>
+    </div>
+    <div class="copyrights">Made by <a href="http://www.cssmoban.com/">Kirska</a></div>
+    <!-- Main Content -->
+    <div class="container-fluid">
+      <div class="side-body">
+        <div class="page-title">
+          <span class="title"><strong><h1>课时修改</h1></strong> </span>
+          <div class="description"> (*^_^*) 修改课时的地方，请点击修改具体课程查看情况.</div>
+        </div>
+
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                   aria-expanded="true" aria-controls="collapseOne">
+                  成功学 #1
+                </a>
+              </h4>
+            </div>
+
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th class="col-md-2">#</th>
+                    <th class="col-md-4">课时名称</th>
+                    <th class="col-md-3">开课时间</th>
+                    <th class="col-md-2">
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#CreateLesson"
+                              style="width:100px; height:30px;" id="create">创建
+                      </button>
+                      <button type="button" class="btn btn-info" id="alter" style="width:100px; height:30px;">修改
+                      </button>
+                    </th>
+                    <th hidden><p>123</p>></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="lesson, lessonStat: ${lessonSet}">
+                    <th scope="row" th:text="${lessonStat.count}">1</th>
+                    <td th:text="${lesson.name}">成功人士</td>
+                    <td hidden th:text="${lesson.id}"> 123</td> <!--HERE SHOULD BE FILLED BY MALIANGKAI.-->
+                    <td th:text="${#dates.format(lesson.startDate, 'yyyy年MM月dd日')}">2017.7.11</td>
+                    <td id="alter" style="padding-top: 0px; padding-bottom: 0px; margin:0px;">
+                      <button type="button" id="alttr" class="btn btn-warning" data-toggle="modal"
+                              data-target="#ChangeLesson" style="width:100px; height:30px;">修改
+                      </button>
+                      <button type="button" id="deltr" class="btn btn-danger" style="width:100px; height:30px;">删除
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                   aria-expanded="false" aria-controls="collapseTwo">
+                  如何快速赚钱 #2
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th class="col-md-2">#</th>
+                    <th class="col-md-4">课时名称</th>
+                    <th class="col-md-3">开课时间</th>
+                    <th class="col-md-2">
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#CreateLesson"
+                              style="width:100px; height:30px;" id="create">创建
+                      </button>
+                      <button type="button" class="btn btn-info" id="alter" style="width:100px; height:30px;">修改
+                      </button>
+                    </th>
+                    <th hidden><p>2345</p></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>首先要放弃做人.</td>
+                    <td hidden> 123</td> <!--HERE SHOULD BE FILLED BY MALIANGKAI.-->
+                    <td>2017.9.11</td>
+                    <td id="alter" style="padding-top: 0px; padding-bottom: 0px; margin:0px;">
+                      <button type="button" id="alttr" class="btn btn-warning" data-toggle="modal"
+                              data-target="#ChangeLesson" style="width:100px; height:30px;">修改
+                      </button>
+                      <button type="button" id="deltr" class="btn btn-danger" style="width:100px; height:30px;">删除
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>其次要学会做人.</td>
+                    <td hidden> 4567</td> <!--HERE SHOULD BE FILLED BY MALIANGKAI.-->
+                    <td>2017.10.11</td>
+                    <td id="alter" style="padding-top:0px; padding-bottom:0px; margin:0px;">
+                      <button type="button" id="alttr" class="btn btn-warning" data-toggle="modal"
+                              data-target="#ChangeLesson" style="width:100px; height:30px;">修改
+                      </button>
+                      <button type="button" id="deltr" class="btn btn-danger" style="width:100px; height:30px;">删除
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="app-footer">
+  <div class="wrapper">
+    <span class="pull-right">2.1 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2015 Copyright. More
+    Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a
+      href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+  </div>
+</footer>
+<!-- Javascript Libs -->
+
+<script type="text/javascript" src="/admin/lib/js/jquery.min.js"></script>
+<script type="text/javascript" src="/admin/lib/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/admin/lib/js/Chart.min.js"></script>
+<script type="text/javascript" src="/admin/lib/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="/admin/lib/js/jquery.matchHeight-min.js"></script>
+<script type="text/javascript" src="/admin/lib/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/admin/lib/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="/admin/lib/js/select2.full.min.js"></script>
+<script type="text/javascript" src="/admin/lib/js/ace/ace.js"></script>
+<script type="text/javascript" src="/admin/lib/js/ace/mode-html.js"></script>
+<script type="text/javascript" src="/admin/lib/js/ace/theme-github.js"></script>
+<!-- Javascript -->
+<script type="text/javascript" src="/admin/js/app.js"></script>
+<script type="text/javascript" src="/admin/js/index.js"></script>
+
+<script type="text/javascript">
+    $("td#alter").hide();
+
+    $("button#alter").click(function () {
+        $("td#alter").fadeToggle();
+    });  //显示修改删除按钮
+
+    $("button#deltr").click(function () {
+        var id = $(this).parent().prev().prev().text();
+        $.ajax({
+            url: '/deleteLesson/' + id, method: 'POST',
+            success: function () {
+                location.reload(true);
+            }
+        })
+    });  //删除按钮的操作
+
+    $("button#alttr").click(function () { //ajax，回填修改表单的值
+        var id = $(this).parent().prev().prev().text();
+        console.log('id: ' + id);
+        $.ajax({
+            url: "/lesson/" + $(this).parent().prev().prev().text(),
+            type: "GET",
+            success: function (response) {
+                $("#CourseId2").val(id); //很重要，ID的填写没，搜索html
+                $("#LessonName2").val(response.name);
+                $("#LessonTime2").val(response.startDate);
+            }
+        });
+    });
+
+    $("#create").click(function () { //ID的填写，创建课时的时候
+        $("#CourseId").val($(this).parent().parent().parent().prev().find("p").text());
+    });
+</script>
+
+</body>
+
+</html>
