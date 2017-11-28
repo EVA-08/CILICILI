@@ -32,8 +32,7 @@
       </div>
       <div class="modal-body">
 
-        <form class="form-horizontal" method="post" th:action="'/course/' + ${course.id} + '/lesson'"
-              enctype="multipart/form-data">
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">
           <div class="form-group" hidden>
             <label for="CourseId" class="col-sm-2 control-label">课程id</label>
             <div class="col-sm-10">
@@ -56,7 +55,7 @@
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
               <label for="ImagePath">请上传资源视频.</label>
-              <input type="file" id="ImagePath" name="video">
+              <input type="file" id="ImagePath" name="video" required>
               <p class="help-block">注意尺寸.</p>
             </div>
           </div>
@@ -154,22 +153,17 @@
           </div>
           <ul class="nav navbar-nav">
             <li>
-              <a href="course_manager.html">
+              <a href="/course_manager">
                 <span class="icon fa fa-table"></span><span class="title">课程管理</span>
               </a>
             </li>
 
             <li class="active">
-              <a href="lesson_manager.html">
+              <a href="#">
                 <span class="icon fa fa-file-text"></span><span class="title">课时管理</span>
               </a>
             </li>
-
-            <li>
-              <a href="license.html">
-                <span class="icon fa fa-thumbs-o-up"></span><span class="title">License</span>
-              </a>
-            </li>
+            
           </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -187,17 +181,19 @@
 
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
+          <div class="panel panel-default" th:each="course, courseStat: ${courseSet}">
+            <div class="panel-heading" role="tab" id="headingOne" th:attr="id='heading_' + ${course.id}">
               <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                   aria-expanded="true" aria-controls="collapseOne">
+                   aria-expanded="true" aria-controls="collapseOne"
+                   th:attr="id='collapse_' + ${course.id}, href='#collapse_' + ${course.id}" th:text="${course.name}">
                   成功学 #1
                 </a>
               </h4>
             </div>
 
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"
+                 th:attr="id='collapse_' + ${course.id}, aria-labelledby='heading_' + ${course.id}">
               <div class="panel-body">
                 <table class="table table-bordered">
                   <thead>
@@ -207,7 +203,10 @@
                     <th class="col-md-3">开课时间</th>
                     <th class="col-md-2">
                       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#CreateLesson"
-                              style="width:100px; height:30px;" id="create">创建
+                              style="width:100px; height:30px;" id="create" th:attr="data-id=${course.id}" onclick="
+                    var id = $(this).attr('data-id');
+                    console.log('id: ' + id);
+                    $('#CreateLesson').find('form').attr('action', '/course/' + id + '/lesson')">创建
                       </button>
                       <button type="button" class="btn btn-info" id="alter" style="width:100px; height:30px;">修改
                       </button>
@@ -216,72 +215,12 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr th:each="lesson, lessonStat: ${lessonSet}">
+                  <tr th:each="lesson, lessonStat: ${course.lessonSet}">
                     <th scope="row" th:text="${lessonStat.count}">1</th>
                     <td th:text="${lesson.name}">成功人士</td>
                     <td hidden th:text="${lesson.id}"> 123</td> <!--HERE SHOULD BE FILLED BY MALIANGKAI.-->
                     <td th:text="${#dates.format(lesson.startDate, 'yyyy年MM月dd日')}">2017.7.11</td>
                     <td id="alter" style="padding-top: 0px; padding-bottom: 0px; margin:0px;">
-                      <button type="button" id="alttr" class="btn btn-warning" data-toggle="modal"
-                              data-target="#ChangeLesson" style="width:100px; height:30px;">修改
-                      </button>
-                      <button type="button" id="deltr" class="btn btn-danger" style="width:100px; height:30px;">删除
-                      </button>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
-              <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                   aria-expanded="false" aria-controls="collapseTwo">
-                  如何快速赚钱 #2
-                </a>
-              </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-              <div class="panel-body">
-                <table class="table table-bordered">
-                  <thead>
-                  <tr>
-                    <th class="col-md-2">#</th>
-                    <th class="col-md-4">课时名称</th>
-                    <th class="col-md-3">开课时间</th>
-                    <th class="col-md-2">
-                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#CreateLesson"
-                              style="width:100px; height:30px;" id="create">创建
-                      </button>
-                      <button type="button" class="btn btn-info" id="alter" style="width:100px; height:30px;">修改
-                      </button>
-                    </th>
-                    <th hidden><p>2345</p></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>首先要放弃做人.</td>
-                    <td hidden> 123</td> <!--HERE SHOULD BE FILLED BY MALIANGKAI.-->
-                    <td>2017.9.11</td>
-                    <td id="alter" style="padding-top: 0px; padding-bottom: 0px; margin:0px;">
-                      <button type="button" id="alttr" class="btn btn-warning" data-toggle="modal"
-                              data-target="#ChangeLesson" style="width:100px; height:30px;">修改
-                      </button>
-                      <button type="button" id="deltr" class="btn btn-danger" style="width:100px; height:30px;">删除
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>其次要学会做人.</td>
-                    <td hidden> 4567</td> <!--HERE SHOULD BE FILLED BY MALIANGKAI.-->
-                    <td>2017.10.11</td>
-                    <td id="alter" style="padding-top:0px; padding-bottom:0px; margin:0px;">
                       <button type="button" id="alttr" class="btn btn-warning" data-toggle="modal"
                               data-target="#ChangeLesson" style="width:100px; height:30px;">修改
                       </button>
